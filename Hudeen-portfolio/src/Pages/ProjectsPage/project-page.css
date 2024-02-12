@@ -1,0 +1,179 @@
+.prj-c{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    justify-content: center;
+    margin: auto;
+    padding: 1em 0;
+    position: relative;
+}
+
+.prj-title{
+    width: 90%;
+    margin: auto;
+    padding: 1em;
+}
+
+.prj-title >h4{
+    text-align: center;
+    margin: auto;
+}
+.prj-title>h2{
+    font-size: 2.8em;
+    width: 90%;
+    margin: auto;
+    line-height: 1.3em;
+}
+
+.toggel-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+}
+.toggel-btn >button{
+    background-color: transparent;
+    color: var(---primary-100);
+}
+.toggel-btn>button:hover{
+    background-color:var(---primary-300);
+
+}
+.toggel-btn>button:focus{
+    background-color: var(---primary-300);
+    color: var(---primary-400);
+
+}
+.prj-b{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 1em;
+    align-items: center;
+    margin: 1em 0;
+}
+
+.prj-b:nth-child(even){
+flex-direction: row-reverse;
+}
+.img-container{
+    width: 45%;
+    overflow: hidden;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+.prj-img{
+    width: 100%;
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.prj-img:hover{
+    scale: 1.2;
+    rotate: -5deg;
+    
+}
+
+.prj-main-c > a > h3{
+    font-size: 1.5em;
+    font-weight: 700;
+    width: 90%;
+    margin: auto;
+}
+.prj-main-c >a > p{
+    font-size: 1em;
+    font-weight: 400;
+    color: var(---primary-200);
+    width: 90%;
+    margin: auto;
+
+}
+
+.prj-b:hover .prj-img{
+    scale: 1.2;
+    rotate: -3deg;
+    
+    
+}
+.prj-b:hover .prj-main-c{
+    text-decoration: underline;
+}
+
+.prj-btn-container{
+ display: flex;
+ flex-direction: row;
+ gap: 1rem;
+ margin: 1em auto;
+ width: 90%;
+}
+.prj-btn{
+    display: flex;
+    background: var(---primary-400);
+    gap: 1em;
+    color: var(---primary-100);
+    transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+}
+
+.prj-btn:hover{
+    background: var(---primary-400);
+    color: var(---primary-100);
+    box-shadow: 5px 5px 10px rgba(255, 217, 0, 0.194);
+    scale: 1.1;
+}
+.prj-icons{
+    width: 25px;
+}
+
+@media screen and (max-width:924px) {
+
+
+    .prj-b, .prj-b:nth-child(even){
+        flex-direction: column;
+        gap: 2em;
+    }
+    .img-container{
+        width: 100%;
+    }
+    .prj-main-c{
+        font-size: 1em;
+    }
+    
+.prj-btn-container{
+    gap: .5rem;
+   }
+   .prj-btn{
+       display: flex;
+       background: var(---primary-400);
+       gap: .5em;
+   
+   }
+   .prj-btn>p{
+    display: none;
+   }
+}
+@media screen and (max-width:760px) {
+
+    .prj-c{
+        width: 95%;
+
+    }
+   .prj-title>h2{
+    font-size: 2em;
+   }
+}
+@media screen and (max-width:400px) {
+    .toggel-btn{
+        gap: .5em;
+        padding: .5em;
+    }
+    .toggel-btn >button{
+        background-color: transparent;
+        color: var(---primary-100);
+        font-size: .8em;
+        font-weight: 550;
+    }
+}
+

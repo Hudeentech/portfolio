@@ -1,0 +1,98 @@
+.about-container{
+    padding: 1em 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+h4{
+    text-align: left;
+    font-weight: 500;
+    color: var(---primary-200);
+    margin: auto;
+    width: 90%;
+}
+
+.abt-content-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1em auto;
+    width: 90%;
+    
+}
+
+.abt-content{
+    width: 90%;
+    font-size: 2.8rem;
+    text-align: left;
+    line-height: 1.3em;
+    z-index: 12;
+   
+}
+
+.abt-contrast{
+    color: var(---primary-300);
+}
+
+.abt-btn{
+    border-radius: 50px;
+    position: absolute;
+    padding: 1em;
+    right: 5%;
+    margin-top: 2em;
+    z-index: 12;
+}
+.abt-btn > img{
+    object-fit: contain;
+    width: 35px;
+}
+
+.abt-img-container{
+    width: 90%;
+    margin: auto;
+}
+.abt-img> img{
+    width: 100%;
+    object-fit: contain;
+
+}
+
+
+@media screen and (max-width:800px) {
+    .abt-img> img{
+        width: 100%;
+        object-fit: cover;
+        transform: translateY(0);
+    
+    }
+    .abt-content{
+        font-size: 2em;
+    }
+}
+@media screen and (max-width:760px) {
+    .abt-content{
+        font-size: 1.8em;
+        text-align: left;
+        z-index: 12;
+        width: 100%;
+        margin: auto;
+    }
+    .about-container{
+        padding: 1em 0;
+        position: relative;
+        width: 95%;
+        margin: auto;
+       
+    }
+
+
+    .abt-btn{
+        bottom: 50%;
+    }
+    h4{
+        text-align: left;
+        
+    }
+}

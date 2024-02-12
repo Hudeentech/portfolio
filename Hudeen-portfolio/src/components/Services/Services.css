@@ -1,0 +1,103 @@
+.svc{
+    position: relative;
+    padding: 2em 0;
+}
+.svc> .patterns{
+   top: 0;
+   bottom: unset;
+}
+.svc-container{
+    width: 90%;
+    margin: auto;
+    padding: 1em
+    
+}
+
+.svc > h4{
+text-align: center;
+margin: auto;
+width: 90%;
+}
+.svc-container>h2{
+    font-size:2.8rem ;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.svc-card-container{
+    display: grid;
+    grid-template-columns:repeat(2, 27%) ;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin: 2em auto;
+    
+    
+}
+
+.svc-card{
+    background-color: var(---primary-400);
+    padding: 2em;
+}
+
+.svc-card> h4{
+    font-size: 1.3em;
+    color: var(---primary-300);
+    font-weight: 500;
+    text-align: center;
+    margin: .5em;
+}
+
+@media screen and (max-width:900px) {
+    .svc-card-container{
+    display: grid;
+    grid-template-columns:repeat(2, 30%) ;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin: 2em auto;
+    
+    
+}
+}
+@media screen and (max-width:760px) {
+    .svc-card-container{
+    display: grid;
+    grid-template-columns:repeat(2, 35%) ;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin: 2em auto;
+    
+    
+}
+
+.svc-container>h2{
+    font-size:2em ;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+}
+@media screen and (max-width:620px) {
+    .svc-card-container{
+    display: grid;
+    grid-template-columns:repeat(1, 70%) ;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin: 2em auto;
+    
+    
+}
+
+.svc-card>p{
+    font-size: .8em;
+}
+.svc-card>h4{
+    font-size: 1em;
+}
+
+}
+

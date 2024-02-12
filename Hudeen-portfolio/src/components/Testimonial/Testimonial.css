@@ -1,0 +1,119 @@
+.testimonial{
+  height: auto;
+  width: 90%;
+  margin: 1.5em auto;
+}
+.tst-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('/src/assets/Mask\ group.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.tst-title >h2, .tst-title>h4{
+    text-align: center;
+    width: 90%;
+}
+
+.tst-title >h2{
+font-size: 2.8rem;
+line-height: 1.3em;
+}
+.tst-c-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em 0;
+    margin: 1.5em auto;
+    gap: 1em;
+    
+}
+
+.tst{
+    width: 75%;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 1em;
+    gap: .2em;
+    justify-content: left;
+    background-color: var(---primary-400);
+
+}
+.tst-img{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding:1em 0 .5em .5em;
+    gap: 1em;
+    position: relative;
+}
+.tst-img >img{
+    border-radius: 100px;
+    width: 100px;
+    
+}
+
+
+.tst-w{
+    padding:0 .5em;
+    text-align: left;
+
+    
+}
+.tst-w >p{
+    font-weight: 520;
+    font-size: 1em;
+}
+.tst-img > div >h3{
+    font-size: 1.3em;
+    padding-left: .5em;
+    color: var(---primary-300);
+}
+.tst-img>div> i{
+     font-size: small;
+     text-align: left;
+     color: var(---primary-200);
+}
+
+
+@media screen and (max-width:760px) {
+    .tst-title >h2{
+        font-size: 1.8em;
+    }
+    .tst-w >h3{
+        font-size: 1.2em;
+        color: var(---primary-300);
+    }
+    .tst-w > p{
+        font-size: .8em;
+    }
+}   
+
+@media screen and (max-width:684px) {
+    .testimonial{
+        width: 95%;
+      }
+    .tst{
+        width: 100%;
+        display: flex;
+        margin: auto;
+        gap: .5em;
+        justify-content: center;
+    
+    }
+
+    .tst-img{
+        gap: .3em;
+    }
+    .tst-img >img{
+        border-radius: 100px;
+        width: 65px;
+    }
+
+}

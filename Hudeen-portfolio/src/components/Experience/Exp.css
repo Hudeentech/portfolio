@@ -1,0 +1,119 @@
+.exp{
+    padding: 1.5em 0;
+}
+
+.exp-heading-container{
+     padding: 1em;
+     width: 90%;
+     height: auto;
+     background-image: url('/src//assets//Rectangle\ 33.jpg');
+     background-repeat: no-repeat;
+     background-position: right;
+     background-size: cover;
+     text-align: left;
+     margin:1em auto;
+
+}
+.exp-heading-container >h2{
+    font-size: 2.8em;
+    width: 80%;
+    padding-bottom: 1em;
+    line-height: 1.2em;
+
+}
+.exp-heading-container >h4{
+    width: 100%;
+    padding: 1em 0;
+}
+
+.experience-content{
+    padding: 1em 0;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    gap: 1em;
+    margin: auto;
+
+}
+.exp-component{
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1.5em;
+
+}
+
+.exp-component >p{
+    width: 90%;
+    text-align: left;
+}
+.exp-component >h3{
+    font-size: 1.5em;
+    width: 30%;
+    padding: 0 1em;
+    text-align: left;
+
+}
+
+.exp-component >div {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 50%;
+    text-align: left;
+}
+.exp-component >div> div >img{
+    width: 75px;
+    padding: 1em;
+}
+
+
+@media screen  and (max-width:620px){
+
+    .exp-heading-container >h2{
+        font-size:1.8em ;
+        width: 85%;
+        line-height: 1.2em;
+    }
+
+    .exp-component >p{
+        width: 90%;
+        text-align: left;
+    }
+    .exp-component >h3{
+        font-size: 1em;
+        width: 50%;
+        padding: 0 1em;
+        text-align: left;
+    
+    }
+    .experience{
+        font-size: .8em;
+    }
+    
+    .exp-component >div {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        width: 90%;
+        text-align: left;
+    }
+
+    .exp-component >div> div >img{
+        width: 65px;
+        padding: 1em;
+    }
+    
+}
+@media screen  and (max-width:760px){
+
+    .exp-heading-container >h2{
+        font-size:2em ;
+        width: 85%;
+        line-height: 1.2em;
+    }
+
+
+}

@@ -1,0 +1,208 @@
+header{
+    margin:0 auto;
+    max-width: 1280px;
+    width: 90%;
+    position: relative;
+    height: 100vh;
+    padding: 1em;
+    background: url('../../assets/Rectangle\ 28.png');
+}
+
+.overflow{
+    overflow-x:hidden;
+    position: absolute;
+    z-index: -100;
+    top: 100px;
+    width: 100%;
+ 
+}
+
+.fade{
+    font-size: 10em;
+    text-wrap: nowrap;
+    color: var(---primary-400);
+    text-align: center;
+    margin-inline-end: 1em;
+
+}
+
+.hero-grid{
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+}
+.heading{
+    color: var(---primary-300);
+    font-size: clamp(5.4em, 3.4em, 2.4em);
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+    font-style: normal;
+    font-weight: 700;
+    text-align: left;
+    line-height: 5.875rem; 
+    text-transform: capitalize;
+}
+
+.pry-contrast{
+color: var(---primary-100);
+}
+
+.hero-content{
+color: var(---primary-100);
+font-size: 1.3em;
+padding: 1.5em 0;
+font-style: normal;
+font-weight: 400;
+text-align: left;
+line-height: 2rem;
+width: 50%;
+}
+
+.contrast{
+    font-weight: 700;
+}
+.down-btn{
+    border-radius: 50px;
+    position: absolute;
+    bottom: 25%;
+    right: 0;
+    padding: 1em;
+}
+.down-btn>img{
+    height: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+.social-icons{
+    display: flex;
+    justify-content: left;
+    gap: .55em;
+}
+
+.patterns{
+
+    position: absolute;
+    bottom:100px;
+    left: 0px;
+    z-index: -100;
+    object-fit: contain;
+    width: 100%;
+
+}
+
+@media screen and (max-width:900px) {
+    .heading{
+        font-size: 4.2rem;
+        line-height: 4.875rem; 
+    }
+    
+    .pry-contrast{
+    color: var(---primary-100);
+    }
+    
+    .hero-content{
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    }
+    
+    .down-btn{
+        bottom: 30%;
+    }
+    .down-btn>img{
+        height: 30px;
+    }
+    .social-icons{
+        width: 40px;
+    }
+
+    .social-icons>img{
+        width: 40px;
+    }
+}
+
+@media screen and (max-width:760px) {
+    .hero-content{
+    font-size: 1.2rem;
+    width: 75%;
+    }
+    .down-btn{
+        bottom: 20%;
+    }
+
+}
+
+@media screen and (max-width:608px) {
+
+    .heading{
+        color: var(---primary-300);
+        font-size: 3.2rem;
+        padding-top: 1.5em;
+        line-height: 3.875rem; 
+    }
+    
+    .hero-content{
+    font-size: 1rem;
+    line-height: 1.8rem;
+    width: 80%;
+    }
+    
+    .down-btn{
+        border-radius: 50px;
+        position: absolute;
+        bottom: 30%;
+        padding: 1em;
+    }
+    .down-btn>img{
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+    }
+    .social-icons{
+        bottom: 30%;
+    }
+    .social-icons>img{
+        width: 30px;
+    }
+   
+}
+
+@media screen and (max-width:540px) {
+
+    .heading{
+        margin-top: 2.5em;
+        color: var(---primary-300);
+        font-size: 2.2rem;
+        line-height: 2.875rem; 
+      
+    }
+    
+    .hero-content{
+    font-size: 1rem;
+    line-height: 1.8rem;
+    width: 95%;
+   
+    }
+    
+    .down-btn{
+        border-radius: 50px;
+        position: absolute;
+        bottom: 20%;
+        padding: 1em;
+       
+    }
+    .down-btn>img{
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+    }
+
+    .social-icons{
+        flex-direction: row;
+        width: 20px;
+        object-fit: contain;
+    }
+   
+    .social-icons>img{
+        width: 18px;
+    }
+}

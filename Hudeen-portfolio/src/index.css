@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+  font-family: 'Poppins', sans-serif; ;
+  line-height: 1.5;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #111;
+
+  ---primary-400:#222;
+  ---primary-300:gold;
+  ---primary-200:#c5c5c5;
+  ---primary-100:#f2f2f2;
+
+  
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  color:white;
+  text-decoration: inherit;
+}
+a:hover {
+  color: gold;
+}
+
+button {
+  border-radius: 50px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: gold;
+  color: #222;
+  cursor: pointer;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
+}
+
+
+button:hover {
+  border-color: gold;
+  color: #222;
+
+  outline-offset: .5em;
+   transform: translateY(.5em);
+  background-color: white;
+}
+button:focus,
+button:focus-visible {
+  background-color: white;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: white;
+    background-color: #111;
+  }
+  a:hover {
+    color: gold;
+  }
+  button {
+    background-color:gold;
+  }
+}
