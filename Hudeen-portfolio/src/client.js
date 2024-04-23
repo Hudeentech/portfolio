@@ -1,12 +1,13 @@
 import sanityClient from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
+import process from 'dotenv'
 
 export const client = sanityClient({
-    projectId:'w7mopn6h',
+    projectId:process.env.REACT_APP_SANITY_PROJECT_ID,
     dataset: 'production',
     apiVersion: '2022-02-01',
     useCdn: true,
-    token: 'skpZ70hlKxvxI6QOXIECVjj5kaG6ZZ3ZsesGviV9AFqCArJno1NmdqGePu3YvVbVBDEzmpRmis968hrqDtOo0sCbe4GijpKPdcIvU52e4pnpA2wUHyzB59O6y5nmheGESvjCzle0rwPySOsGe4pR4ihWpz0GZVAHdS4Zhgjeu6MxwHfOUmf7',
+    token: process.env.REACT_APP_SANITY_TOKEN,
   });
   
   const builder = imageUrlBuilder(client);

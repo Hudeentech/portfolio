@@ -52,5 +52,3 @@ dist-ssr
 
 # Dotenv and similar local-only files
 *.local
-*.token
-*.projectId
