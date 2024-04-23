@@ -6,8 +6,13 @@ export default {
   type: 'document',
   fields:[
       {
-        name: 'Name',
+        name: 'title',
         title: 'heading title',
+        type: 'string',
+      },
+      {
+        name: 'contrast',
+        title: 'heading contrast',
         type: 'string',
       },
       {
@@ -16,7 +21,7 @@ export default {
         type: 'string',
       },
       {
-        name: 'imageurl',
+        name: 'imgUrl',
         title: 'An image of you',
         type: 'image',
         options:{

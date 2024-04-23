@@ -4,8 +4,13 @@ export default {
     type: 'document',
     fields:[
         {
-          name: 'heading',
-          title: 'Heading intro title',
+          name: 'headingSalutation',
+          title: 'Heading salutations',
+          type: 'string',
+        },
+        {
+          name: 'Name',
+          title: 'Heading name',
           type: 'string',
         },
         {
@@ -17,11 +22,6 @@ export default {
           name: 'fade',
           title: 'Animated text',
           type: 'string',
-        },
-        {
-          name: 'social',
-          title: 'An image of you',
-          type: 'image',
         },
     ]
   }

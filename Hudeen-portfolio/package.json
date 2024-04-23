@@ -2,7 +2,7 @@
   "name": "hudeen-portfolio",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "gsap": "^3.12.5",
+    "@sanity/client": "^6.12.4",
+    "@sanity/image-url": "^1.0.2",
+    "dotenv": "^16.4.4",
+    "framer-motion": "^11.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.3",

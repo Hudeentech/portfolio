@@ -1,11 +1,12 @@
-import React from 'react'
 import'./Testimonial.css'
 
 function Testimonial() {
+
+
   return (
     <div className='testimonial'>
       <div className="tst-title">
-        <h4>Testimonial</h4>
+        <h4 >Testimonial</h4>
         <h2>I've <span className="abt-contrast">collaborated</span> with innovative team and <span className="abt-contrast">industries professionals</span> to the development of their cutting edge products</h2>
       </div>
 

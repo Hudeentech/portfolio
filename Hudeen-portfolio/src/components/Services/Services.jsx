@@ -1,7 +1,22 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { urlFor, client } from "../../client.js";
+
 import './Services.css'
 
 function Services() {
+
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+     const query = '*[_type == "service"]'
+
+     client.fetch(query)
+      .then((data) => setData(data));
+  
+  }, [])
+  
+
   return (
     <div className='svc'>
        <img src="/src/assets/Mask group.png" alt="" className="patterns" />
@@ -14,30 +29,14 @@ function Services() {
       </div>
 
       <div className="svc-card-container">
-        <div className="svc-card">
-          <img src="/src/assets//Group 2.svg" alt="" className="svc-img" />
-          <h4>Web Design</h4>
-          <p>Bringing websites to life with intuitive designs</p>
-        </div>
-
-        <div className="svc-card">
-          <img src="/src/assets/Vector (2).svg" alt="" className="svc-img" />
-          <h4>UI/UX Design</h4>
-          <p>crafting seamless user experiences</p>
-        </div>
         
-        <div className="svc-card">
-          <img src="/src/assets/device-mobile.svg" alt="" className="svc-img" />
-          <h4>App Development</h4>
-          <p>Building innovative and functional applications</p>
+        {data.map((data, index) => (
+          <div key={index} className="svc-card">
+          <img src={urlFor(data.icon)} alt=""/>
+          <h4>{data.heading}</h4>
+          <p>{data.summary}</p>
         </div>
-
-        <div className="svc-card">
-          <img src="/src/assets/chart-pie.svg" alt="" className="svc-img" />
-          <h4>SEO Expert</h4>
-          <p>Elevating your online presence with SEO Exellence</p>
-        </div>
-
+        ))}
       </div>
     </div>
   )

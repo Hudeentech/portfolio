@@ -1,85 +1,65 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { urlFor, client } from "../../client.js";
+import { motion } from "framer-motion"
+
 import './Exp.css'
 
 function Exp() {
+
+    const [expData, setExpData] =useState([]);
+    const [wData, setWData] = useState([]);
+
+ useEffect(() => {
+
+   const expQuery = '*[_type == "experience"],{}';
+  const query = '*[_type == "expWallpaper"]';
+
+  client.fetch(query)
+  .then((data) => setWData(data))
+
+  client.fetch(expQuery)
+  .then((data) => setExpData(data))
+ },[])
+
+
+
+
   return (
     <div className='exp'>
 
-     <div className="exp-heading-container">
-     <h4>Experience</h4>
+    {wData.map((data, index)=>(
+      <div key={index} style={{backgroundImage:`url(${urlFor(data.wallpaper)})`}} className="exp-heading-container">
+      <h4>Experience</h4>
 
-      <h2 className="exp-heading">
-      With extensive <span className="abt-contrast">experience</span> in <span className="abt-contrast">interactive design</span>, I've collaborated with end organizations      </h2>
-     </div>
+       <h2 className="exp-heading">
+       {data.heading}<span className="abt-contrast">{data.contrast1}</span> <span className="abt-contrast">{data.contrast2}</span> {data.contrast3} </h2>
 
-
-     <div className="experience-content">
-      <div className="exp-component">
-      <h3 className="year">
-        2018 - 2019
-      </h3>
-
-        <div className="experience">
-          <p >
-            With extensive experience in interactive design, I’ve collaborated with high end organizations
-          </p>
-          <div>
-          <img src="/src/assets/Vector.svg" alt="" className="exp-img" />
-          <img src="/src/assets/Vector (1).svg" alt="" className="exp-img" />
-          <img src="/src/assets/js-square.svg" alt="" className="exp-img" />
-          </div>
-        </div>
       </div>
+       ))}
 
-      <div className="exp-component">
-      <h3 className="year">
-        2020 - 2021
-      </h3>
 
-        <div className="experience">
-          <p>
-            With extensive experience in interactive design, I’ve collaborated with high end organizations
-          </p>
-          <div>
-          <img src="/src/assets/wordpress.svg" alt="" className="exp-img" />
-          <img src="/src/assets/react (1).svg" alt="" className="exp-img" />
-          <img src="/src/assets/blender-svgrepo-com.svg" alt="" className="exp-img" />
-          <img src="/src/assets/adobe-xd-svgrepo-com.svg" alt="" className="exp-img" />
-          <img src="/src/assets/photoshop-svgrepo-com.svg" alt="" className="exp-img" />
-          </div>
-        </div>
-      </div>
 
-      <div className="exp-component">
-      <h3 className="year">
-        2022 - 2023
-      </h3>
+ <div className="experience-content">
 
-        <div className="experience">
-          <p>
-            With extensive experience in interactive design, I’ve collaborated with high end organizations
-          </p>
-          <div>
-          <img src="/src/assets/figma-svgrepo-com.svg" alt="" className="exp-img" />
-          <img src="/src/assets/framer-logo-fill-svgrepo-com.svg" alt="" className="exp-img" />
-          </div>
-        </div>
-      </div>
+      {expData.map((data, index) => (
+         <div key={index} className="exp-component">
+         <h3 className="year">
+           {data.years}
+         </h3>
 
-      <div className="exp-component">
-      <h3 className="year">
-        Now
-      </h3>
-
-        <div className="experience">
-          <p className="experience">
-            With extensive experience in interactive design, I’ve collaborated with high end organizations
-          </p>
-          <div>
-          <img src="/src/assets/node-16-svgrepo-com.svg" alt="" className="exp-img" />
-          </div>
-        </div>
-      </div>
+           <div className="experience">
+             <p >
+               {data.summary}
+             </p>
+             <div>
+             {expData.images.expIcons.map((icon, index) => (
+              <img key={index} src={icon} alt={`Experience icon ${index}`} />
+            ))}
+             </div>
+           </div>
+         </div> 
+      ))
+      }
      </div>
     </div>
   )

@@ -1,24 +1,32 @@
-import React from 'react';
-import Marquee from 'react-fast-marquee';
+import { useEffect, useState } from 'react'
+import { urlFor, client } from "../../client.js";
 
+import Marquee from 'react-fast-marquee';
 import './marque.css'
 
 function Marque(props) {
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    
+  const query ='*[_type == "skills"]';
+
+  client.fetch(query)
+  .then((data) => setData(data));
+
+   
+  }, [])
+  
+
     return (
         <div className="mq-icons">
           <Marquee behavior=" " direction="">
-           <div className="icons-mq"> <img src="/src/assets/adobe.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/react (1).svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/wordpress.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/Vector.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/Vector (1).svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/js-square.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/adobe.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/react (1).svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/wordpress.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/Vector.svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/Vector (1).svg" alt="" /></div>
-           <div className="icons-mq"> <img src="/src/assets/js-square.svg" alt="" /></div>
+            {
+              data.map((data, index) =>(
+                <div key={index} className="icons-mq"> <img src={urlFor(data.icons)} alt="" /></div>
+              ))
+            }
           </Marquee>
         </div>
     );

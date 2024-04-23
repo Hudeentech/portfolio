@@ -4,11 +4,6 @@ export default {
     type: 'document',
     fields:[
         {
-          name: 'heading',
-          title: 'Heading intro title',
-          type: 'string',
-        },
-        {
           name: 'summary',
           title: 'Breif summary',
           type: 'string',
@@ -19,10 +14,17 @@ export default {
           type: 'string',
         },
         {
-          name: 'skils',
-          title: 'skills icon',
-          type: 'image',
-        },
+        name:'images',
+        type: 'object',
+        fields:[
+            {
+              name: 'expIcons',
+              title: 'Enter experience icon e.g React',
+              type: 'array',      
+                of: [{ type: 'image' }]
+            },
+        ]
+      },
     ]
   }
   
