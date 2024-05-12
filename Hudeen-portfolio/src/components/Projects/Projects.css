@@ -110,11 +110,17 @@ flex-direction: row-reverse;
 }
 .prj-btn{
     display: flex;
+    flex-direction: row;
     background: var(---primary-400);
     gap: 1em;
     color: var(---primary-100);
     transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+}
+.prj-btn p{
+    
+    font-size: 10px;
+    
 }
 
 .prj-btn:hover{

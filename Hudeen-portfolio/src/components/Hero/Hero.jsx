@@ -14,9 +14,6 @@ function Hero() {
      client.fetch(query)
      .then((data) => setData(data))
   
-    return () => {
-   
-    }
   }, [])
   
 
@@ -24,8 +21,8 @@ function Hero() {
   return (
     <header>
       {data.map((data, index) => (
-        
-      <div key={data.name + index}>
+
+        <div key={data.name + index}>
           <div className="overflow">
           <Marquee >
           <h1 className='fade'>{data.fade} </h1>

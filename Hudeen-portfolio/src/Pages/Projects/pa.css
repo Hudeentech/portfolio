@@ -19,7 +19,7 @@
     border-radius: 5px;
     max-width: 85%;
     max-height: 85%;
-    min-height: 85%;
+    min-height:auto;
     overflow-y: auto;
     display: flex;
     flex-direction: row;
@@ -65,7 +65,7 @@
     display: flex;
     gap: 1.5em;
   }
-  @media screen and (max-width:900px) {
+  @media screen and (max-width:1024px) {
     .project-article{
       flex-direction: column;
       padding: 10px;
@@ -78,4 +78,11 @@
       align-items: start;
       padding: .5em;
     }
+
+    .pa-img{
+      max-height: 30%;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+  
   }

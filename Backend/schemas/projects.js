@@ -4,13 +4,8 @@ export default {
     type: 'document',
     fields:[
         {
-          name: 'heading',
+          name: 'projectName',
           title: 'Project Name',
-          type: 'string',
-        },
-        {
-          name: 'summary',
-          title: 'Breif summary',
           type: 'string',
         },
         {
@@ -25,12 +20,22 @@ export default {
         },
         {
           name: 'links',
-          title: 'project Links',
+          title: 'project live Links',
+          type: 'url',
+        },
+        {
+          name: 'git',
+          title: 'git repo Links',
+          type: 'url',
+        },
+        {
+          name: 'behance',
+          title: 'behance Links',
           type: 'url',
         },
         {
           name: 'tag',
-          title: 'Tag',
+          title: 'Category',
           type: 'string',
         },
         {

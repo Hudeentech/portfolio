@@ -1,30 +1,14 @@
 export default {
-    name: 'experience',
-    title: 'Experience',
+    name: 'experienceIcons',
+    title: 'Experience icons',
     type: 'document',
     fields:[
         {
-          name: 'summary',
-          title: 'Breif summary',
-          type: 'string',
+          name: 'expIcons',
+          title: 'Enter experience icon e.g React',
+          type: 'array',      
+            of: [{ type: 'image' }]
         },
-        {
-          name: 'years',
-          title: 'Years of experience',
-          type: 'string',
-        },
-        {
-        name:'images',
-        type: 'object',
-        fields:[
-            {
-              name: 'expIcons',
-              title: 'Enter experience icon e.g React',
-              type: 'array',      
-                of: [{ type: 'image' }]
-            },
-        ]
-      },
     ]
   }
   

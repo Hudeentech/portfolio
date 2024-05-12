@@ -6,5 +6,6 @@ import service from './service';
 import experience from './experience';
 import hero from './hero';
 import expWallpaper from './expWallpaper';
+import years from './years';
 
-export const schemaTypes = [about, expWallpaper, experience, skills, service, projects, hero, contact]
+export const schemaTypes = [about, years, expWallpaper, experience, skills, service, projects, hero, contact]
