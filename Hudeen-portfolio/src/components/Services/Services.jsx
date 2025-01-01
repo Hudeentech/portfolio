@@ -44,7 +44,7 @@ function Services() {
       animate="visible"
       variants={containerVariants} // Apply container variants
     >
-      <img src="./src/assets/Mask group.png" alt="" className="patterns" />
+      <img src="../../assets/Mask group.png" alt="" className="patterns" />
       <motion.h4> What I Do </motion.h4>
 
       <motion.div
