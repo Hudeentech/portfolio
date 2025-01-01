@@ -226,12 +226,18 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+
   }
 
   .modal-text-container{
     display: flex;
     flex-direction: column;
     gap: 1em;
+
+    h2{
+        text-transform: capitalize;
+    }
   }
   
   .modal-close {

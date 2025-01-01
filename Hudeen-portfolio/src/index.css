@@ -22,6 +22,25 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(---primary-400);
+}
+
+::-webkit-scrollbar-thumb {
+  background: gold;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd700cc;
+}
+
+
 .filter-btn.active {
   background-color:gold; /* Highlight active button */
   color:var(---primary-400);

@@ -17,6 +17,10 @@
   cursor: pointer;
   background: white;
   color: #222 !important;
+
+  &:hover{
+    background:gold;
+  }
 }
 
 .burger-btn{

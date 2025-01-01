@@ -19,6 +19,7 @@ function Projects({ blog, onClick }) {
     setSelectedTag(tag);
   };
 
+
   // Animation Variants
   const containerVariants = {
     hidden: {},
