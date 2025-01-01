@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { urlFor, client } from "../../client.js";
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 import './Services.css';
+import img from '/src/assets/Mask group.png'
 
 function Services() {
   const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ function Services() {
       animate="visible"
       variants={containerVariants} // Apply container variants
     >
-      <img src="../../assets/Mask group.png" alt="" className="patterns" />
+      <img src={img} alt="" className="patterns" />
       <motion.h4> What I Do </motion.h4>
 
       <motion.div

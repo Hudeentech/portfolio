@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url('../../assets/Mask\ group.png');
+    background-image: url('/src/assets/Mask\ group.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

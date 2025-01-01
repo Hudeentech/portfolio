@@ -4,6 +4,8 @@ import "../Nav/Nav.css";
 import { NavLink } from "react-router-dom";
 import { client } from "../../client"; // Adjust the import based on your setup
 
+import img from '/src/assets/20231229_212800-removebg-preview.png'
+
 function Nav() {
   const [resumeUrl, setResumeUrl] = useState("");
   const [resumeTitle, setResumeTitle] = useState("resume");
@@ -63,7 +65,7 @@ function Nav() {
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <img
-          src="/src/assets/20231229_212800-removebg-preview.png"
+          src={img}
           alt="Logo"
           className="logo"
         />

@@ -4,6 +4,8 @@ import { urlFor, client } from "../../client.js";
 import Marquee from "react-fast-marquee";
 import "../Hero/Hero.css";
 
+import img from '/src/assets/Mask group.png'
+
 function Hero() {
   const [data, setData] = useState([]);
 
@@ -91,7 +93,7 @@ function Hero() {
             {/* Patterns Image */}
             <motion.img
               className="patterns"
-              src="../../assets/Mask group.png"
+              src={img}
               alt="Decorative patterns"
               variants={fadeVariants}
             />
