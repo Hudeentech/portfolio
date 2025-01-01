@@ -1,30 +1,68 @@
-import React from 'react'
-import './Footer.css'
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { client } from "../../client"; // Sanity client configuration
+import "./Footer.css";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3, // Add stagger effect
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 function Footer() {
+  const [footerData, setFooterData] = useState(null);
+
+  useEffect(() => {
+    const query = '*[_type == "footer"][0]'; // Fetch the first footer document
+    client.fetch(query).then((data) => setFooterData(data));
+  }, []);
+
+  if (!footerData) {
+    return null; // Handle loading or empty state
+  }
+
   return (
-    <div className='footer'>
-      <div className="contact-headlines">
-        <h4>CONTACT</h4>
-        <h1 className="conact-heading">
-          Let's collaborate! Reach out and let's create something amazing together.
-        </h1>
-      </div>
+    <motion.div
+      className="footer"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+      <motion.div className="contact-headlines" variants={itemVariants}>
+        <h1 className="contact-heading">{footerData.headline}</h1>
+      </motion.div>
 
-      <div className="contact-links">
+      <motion.div className="contact-links" variants={itemVariants}>
         <ul>
-          <li>Facebook</li>
-          <li>x (Twitter)</li>
-          <li>Instagram</li>
-          <li>Telegram</li>
-          <li>WhatsApp</li>
-          <li>Behance</li>
-          <li>Dribble</li>
+          {footerData.links.map((link, index) => (
+            <motion.li key={index} variants={itemVariants}>
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                {link.title}
+              </a>
+            </motion.li>
+          ))}
         </ul>
-
-        <button className='buzz'>Buzz Me</button>
-      </div>
-    </div>
-  )
+        <motion.button
+          className="buzz"
+          onClick={() => window.location = 'mailto:Hudeen09@gmail.com'}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {footerData.buttonText}
+        </motion.button>
+      </motion.div>
+    </motion.div>
+  );
 }
 
-export default Footer
+export default Footer;

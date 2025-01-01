@@ -1,179 +1,343 @@
-.prj-c{
+.prj-page-container{
+  display: grid;
+  max-width: 1280px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+  gap: 1em;
+
+}
+
+.prj-page-container .prj-page-title {
+  padding: 2em 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content:start;
+  width: 100%;
+  margin: auto;
+}
+
+.prj-page-container> .prj-page-title > h2 {
+  font-size: 2em;
+  width: 100%;
+  text-align: left;
+  line-height: 1.3em;
+}
+
+
+.prj-page-container .toggel-btn {
+  display: flex;
+  flex-direction: row;
+  text-wrap: nowrap;
+  justify-content: end;
+  align-items: center;
+  font-weight: normal;
+  gap: 1em;
+  padding: 1em;
+}
+.toggel-btn > button {
+  background-color: transparent;
+  color: var(---primary-100);
+}
+.toggel-btn > button:hover {
+  background-color: var(---primary-300);
+  color: var(---primary-400);
+}
+.toggel-btn > button:focus {
+  background-color: var(---primary-300);
+  color: var(---primary-400);
+}
+.toggel-btn > button:active {
+  background-color: var(---primary-300);
+  color: var(---primary-400);
+}
+
+.prj-card{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(280px, 1fr));
+  grid-template-rows: repeat(auto-fill, auto);
+
+  grid-template-areas: 
+  'title ' 'desc' 'img' 'role' 'tools' 'view';
+  width: 100%;
+  justify-content: center;
+  gap: 1em;
+  margin: 1.5em 0;
+  outline: 1px solid rgb(54, 54, 54);
+  padding:.5em;
+  border-radius: 14px;
+
+}
+
+.prj-main-c{
+  grid-area:title ;
+  padding: .5em;
+  
+}
+.prj-main-desc{
+  grid-area: desc;
+  padding:0 .5em;
+}
+
+.prj-d-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: .5em ;
+  padding: 0 .8em;
+  
+}
+
+
+.tools{
+  grid-area: tools;
+  align-items: start;
+}
+.role{
+  grid-area: role;
+  align-items: start;
+}
+.view{
+  grid-area: view;
+  align-items: start;
+}
+
+.prj-d-list > h4{
+  display: flex;
+  margin: 0;
+  gap: .5em;
+  align-items: center;
+  font-weight: 600;
+}
+.prj-d-list h4 i{
+  padding: .5em;
+  background-color: var(---primary-400);
+  color: var(---primary-300);
+  border-radius: 500px;
+
+}
+
+
+.prj-d-list  p{
+ 
+  color: gray;
+}
+
+.prj-main-c h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.prj-main-desc p {
+
+  font-size: 1em;
+  font-weight: 400;
+  color: var(---primary-200);
+  margin: auto;
+  line-height: 1.8em;
+}
+
+.prj-img-container {
+  grid-area: img;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 96%;
+  margin: auto;
+}
+.prj-img-container > .prj-p-img {
+  width: 100%;
+  transition: ease-in-out 0.5s;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.prj-p-img:hover {
+  scale: 1.1;
+}
+
+
+
+.prj-page-container > .prj-b:hover> .prj-img {
+  scale: 1;
+} 
+.prj-b:hover {
+  background-color: var(---primary-400) ;
+}
+.prj-b:hover .p {
+  text-decoration: none;
+}
+
+.prj-btn-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 1em auto;
+  width: 90%;
+}
+.prj-btn {
+  display: flex;
+  background: var(---primary-400);
+  gap: 1em;
+  color: var(---primary-100);
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.prj-btn:hover {
+  background: var(---primary-400);
+  color: var(---primary-100);
+  box-shadow: 5px 5px 10px rgba(255, 217, 0, 0.194);
+  scale: 1.1;
+}
+.prj-icons {
+  width: 25px;
+}
+
+@media screen and (max-width: 924px) {
+  .img-container {
+    width: 100%;
+  }
+  .prj-main-c {
+    font-size: 1em;
+  }
+
+  .prj-btn-container {
+    gap: 0.5rem;
+  }
+  .prj-btn {
     display: flex;
-    flex-direction: column;
-    width: 90%;
-    justify-content: center;
-    margin: auto;
-    padding: 1em 0;
-    position: relative;
-}
+    background: var(---primary-400);
+    gap: 0.5em;
+  }
+  .prj-btn > p {
+    display: none;
+  }
 
-.prj-title{
-    width: 90%;
-    margin: auto;
-    padding: 1em;
-}
-
-.prj-title >h4{
-    text-align: center;
-    margin: auto;
-}
-.prj-title>h2{
-    font-size: 2.8em;
-    width: 90%;
-    margin: auto;
-    line-height: 1.3em;
-}
-
-.toggel-btn{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  .tools{
+    grid-area: tools;
     align-items: center;
-    gap: 1em;
-    padding: 1em;
+  }
+  .role{
+    grid-area: role;
+  }
+  .view{
+    grid-area: view;
+    align-items:end;
+  
+  }
+
+  
 }
-.toggel-btn >button{
+@media screen and (max-width: 760px) {
+  .tools{
+    grid-area: tools;
+    align-items: start;
+  }
+  .role{
+    grid-area: role;
+  }
+  .view{
+    grid-area: view;
+    align-items: start;
+  
+  }
+  
+  .prj-c {
+    width: 95%;
+  }
+  .prj-title > h2 {
+    font-size: 2em;
+  }
+}
+@media screen and (max-width: 400px) {
+  .tools{
+    grid-area: tools;
+    align-items: start;
+  }
+  .role{
+    grid-area: role;
+  }
+  .view{
+    grid-area: view;
+    align-items: start;
+  
+  }
+  .toggel-btn {
+    gap: 0.5em;
+    padding: 0.5em;
+  }
+  .toggel-btn > button {
     background-color: transparent;
     color: var(---primary-100);
+    font-size: 0.8em;
+    font-weight: 300;
+    padding: 0.3em .8em;
+  }
+  .prj-page-container{
+    display: grid;
+    max-width: 90%;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    gap: 1em;
+  
+  }
 }
-.toggel-btn>button:hover{
-    background-color:var(---primary-300);
+
+@media (min-width:580px) {
+  
+ .prj-card{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+
+  grid-template-areas: 
+  'title desc desc'
+  'img img img'
+  'role tools view';
+  width: 90%;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em auto;
+  outline: 1px solid rgb(54, 54, 54);
+  padding:.5em;
+  border-radius: 14px;
 
 }
-.toggel-btn>button:focus{
-    background-color: var(---primary-300);
-    color: var(---primary-400);
 
+.prj-main-desc, .prj-main-c{
+  padding:1em;
 }
-.prj-b{
+}
+
+@media (min-width:840px) {
+  .prj-page-container .prj-page-title {
+    padding: 1em 0.5em;
     display: flex;
     flex-direction: row;
+    justify-content:space-between;
+    width: 90%;
+  }
+  
+  .prj-page-container> .prj-page-title > h2 {
+    font-size: 2.5em;
+    max-width: 70%;
     text-align: left;
-    gap: 1em;
-    align-items: center;
-    margin: 1em 0;
+    line-height: 1.3em;
+  }
 }
+@media (min-width:1000px) {
+  
+  .prj-page-container> .prj-page-title > h2 {
+    font-size: 2.8em;
+    max-width: 55%;
+    text-align: left;
+    line-height: 1.3em;
 
-.prj-b:nth-child(even){
-flex-direction: row-reverse;
+  }
 }
-.img-container{
-    width: 45%;
-    overflow: hidden;
-    border-radius: 10px;
-    flex-shrink: 0;
-}
-.prj-img{
-    width: 100%;
-    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) .5s;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.prj-img:hover{
-    scale: 1.2;
-    rotate: -5deg;
-    
-}
-
-.prj-main-c > a > h3{
-    font-size: 1.5em;
-    font-weight: 700;
-    width: 90%;
-    margin: auto;
-}
-.prj-main-c >a > p{
-    font-size: 1em;
-    font-weight: 400;
-    color: var(---primary-200);
-    width: 90%;
-    margin: auto;
-
-}
-
-.prj-b:hover .prj-img{
-    scale: 1.2;
-    rotate: -3deg;
-    
-    
-}
-.prj-b:hover .prj-main-c{
-    text-decoration: underline;
-}
-
-.prj-btn-container{
- display: flex;
- flex-direction: row;
- gap: 1rem;
- margin: 1em auto;
- width: 90%;
-}
-.prj-btn{
-    display: flex;
-    background: var(---primary-400);
-    gap: 1em;
-    color: var(---primary-100);
-    transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-}
-
-.prj-btn:hover{
-    background: var(---primary-400);
-    color: var(---primary-100);
-    box-shadow: 5px 5px 10px rgba(255, 217, 0, 0.194);
-    scale: 1.1;
-}
-.prj-icons{
-    width: 25px;
-}
-
-@media screen and (max-width:924px) {
-
-
-    .prj-b, .prj-b:nth-child(even){
-        flex-direction: column;
-        gap: 2em;
-    }
-    .img-container{
-        width: 100%;
-    }
-    .prj-main-c{
-        font-size: 1em;
-    }
-    
-.prj-btn-container{
-    gap: .5rem;
-   }
-   .prj-btn{
-       display: flex;
-       background: var(---primary-400);
-       gap: .5em;
-   
-   }
-   .prj-btn>p{
-    display: none;
-   }
-}
-@media screen and (max-width:760px) {
-
-    .prj-c{
-        width: 95%;
-
-    }
-   .prj-title>h2{
-    font-size: 2em;
-   }
-}
-@media screen and (max-width:400px) {
-    .toggel-btn{
-        gap: .5em;
-        padding: .5em;
-    }
-    .toggel-btn >button{
-        background-color: transparent;
-        color: var(---primary-100);
-        font-size: .8em;
-        font-weight: 550;
-    }
-}
-

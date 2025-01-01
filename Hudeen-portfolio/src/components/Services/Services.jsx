@@ -1,45 +1,84 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { urlFor, client } from "../../client.js";
-
-import './Services.css'
+import { motion } from 'framer-motion'; // Import motion from framer-motion
+import './Services.css';
 
 function Services() {
-
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
-     const query = '*[_type == "service"]'
-
-     client.fetch(query)
+    const query = '*[_type == "service"]';
+    client.fetch(query)
       .then((data) => setData(data));
-  
-  }, [])
-  
+  }, []);
+
+  // Variants for fade-in animation with transition effects
+  const fadeInVariants = {
+    hidden: { opacity: 0, y: 30 }, // Starts off below with opacity 0
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.8, 
+        ease: 'easeOut',
+        delay: 0.3,  // Delay to create the stagger effect
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: {},
+    visible: { 
+      transition: { 
+        staggerChildren: 0.3, // Stagger the children with 0.3s delay
+        delayChildren: 0.5, // Delay before children start animating
+      }
+    }
+  };
 
   return (
-    <div className='svc'>
-       <img src="/src/assets/Mask group.png" alt="" className="patterns" />
-      <h4> What I Do </h4>
+    <motion.div
+    id='services'
+      className='svc'
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants} // Apply container variants
+    >
+      <img src="/src/assets/Mask group.png" alt="" className="patterns" />
+      <motion.h4> What I Do </motion.h4>
 
-      <div className="svc-container">
-        <h2>
+      <motion.div
+        className="svc-container"
+        variants={fadeInVariants} // Apply individual fadeIn effect
+        initial="hidden"
+        whileInView="visible"
+      >
+        <motion.h2>
           With extensive <span className="abt-contrast">experience</span> in <span className="abt-contrast">interactive design</span>, I've collaborated with end organizations
-        </h2>
-      </div>
+        </motion.h2>
+      </motion.div>
 
-      <div className="svc-card-container">
-        
+      <motion.div
+        className="svc-card-container"
+        initial="hidden"
+        whileInView="visible"
+        variants={containerVariants} // Apply container animation for stagger effect
+      >
         {data.map((data, index) => (
-          <div key={index} className="svc-card">
-          <img src={urlFor(data.icon)} alt=""/>
-          <h4>{data.heading}</h4>
-          <p>{data.summary}</p>
-        </div>
+          <motion.div
+            key={index}
+            className="svc-card"
+            variants={fadeInVariants} // Apply fadeIn effect to each card
+            transition={{ delay: 0.5 + index * 0.2 }} // Stagger each card
+          >
+            <motion.img src={urlFor(data.icon)} alt="" />
+            <motion.h4>{data.heading}</motion.h4>
+            <motion.p>{data.summary}</motion.p>
+          </motion.div>
         ))}
-      </div>
-    </div>
-  )
+      </motion.div>
+    </motion.div>
+  );
 }
 
-export default Services
+export default Services;

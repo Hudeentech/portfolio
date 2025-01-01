@@ -1,7 +1,6 @@
 export {default as Nav } from './components/Nav/Nav.jsx'
 export {default as Hero } from './components/Hero/Hero.jsx'
 export {default as Services } from './components/Services/Services.jsx'
-export {default as About } from './components/About/About.jsx'
 export {default as Testimonial } from './components/Testimonial/Testimonial.jsx'
 export {default as Projects } from './components/Projects/Projects.jsx'
 export {default as Footer } from './components/Footer/Footer.jsx'

@@ -1,21 +1,18 @@
 
 
-import {Nav, Exp, Services, Projects, Hero, About, Testimonial, Footer } from '../..'
-import Marque from '../../components/Marque/Marque'
+import {Nav, Exp, Services, Projects, Hero, Maqrue, Testimonial, Footer } from '../..'
+
 
 function Home() {
   return (
     <div className='Home'>
         <Nav/>
         <Hero/>
-        <About/>
-        <Marque/>
         <Services/>
         <Exp/>
         <Projects/>
         <Testimonial/>
         <Footer/>
-      
     </div>
     
   )

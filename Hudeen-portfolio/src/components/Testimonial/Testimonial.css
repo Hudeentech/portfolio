@@ -1,7 +1,12 @@
 .testimonial{
-  height: auto;
-  width: 90%;
+  min-height: 100svh;
+  max-width: 1080px;
   margin: 1.5em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
 .tst-title{
     display: flex;
@@ -24,18 +29,25 @@ line-height: 1.3em;
 }
 .tst-c-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    overflow:hidden;
+    scrollbar-width: none;
     justify-content: center;
+    align-items: center;
     padding: 1em 0;
     margin: 1.5em auto;
     gap: 1em;
+    max-width: 100%;
     
+
 }
 
 .tst{
-    width: 75%;
+    max-width:300px;
     display: flex;
     margin: auto;
+    margin-left: 1em;
+    min-width: 350px;
     flex-direction: column;
     border-radius: 10px;
     padding: 1em;
@@ -54,8 +66,8 @@ line-height: 1.3em;
     position: relative;
 }
 .tst-img >img{
-    border-radius: 100px;
-    width: 100px;
+    border-radius: 50px;
+    width: 50px;
     
 }
 
@@ -64,11 +76,10 @@ line-height: 1.3em;
     padding:0 .5em;
     text-align: left;
 
-    
 }
 .tst-w >p{
-    font-weight: 520;
-    font-size: 1em;
+    font-weight: 320;
+    font-size: .9em;
 }
 .tst-img > div >h3{
     font-size: 1.3em;
@@ -103,6 +114,7 @@ line-height: 1.3em;
         width: 100%;
         display: flex;
         margin: auto;
+        margin-left: 1em !important;
         gap: .5em;
         justify-content: center;
     

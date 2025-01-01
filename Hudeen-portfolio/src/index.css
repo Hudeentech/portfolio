@@ -22,19 +22,24 @@
   box-sizing: border-box;
 }
 
+.filter-btn.active {
+  background-color:gold; /* Highlight active button */
+  color:var(---primary-400);
+}
+
 a {
   font-weight: 500;
   color:white;
   text-decoration: inherit;
 }
 a:hover {
-  color: gold;
+  color:gold;
 }
 
 button {
   border-radius: 50px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: .5em 1.5em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -46,11 +51,10 @@ button {
 
 
 button:hover {
-  border-color: gold;
+  border-color: rgb(255, 255, 255);
   color: #222;
 
   outline-offset: .5em;
-   transform: translateY(.5em);
   background-color: white;
 }
 button:focus,
@@ -70,3 +74,4 @@ button:focus-visible {
     background-color:gold;
   }
 }
+

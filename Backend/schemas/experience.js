@@ -1,14 +1,25 @@
 export default {
-    name: 'experienceIcons',
-    title: 'Experience icons',
-    type: 'document',
-    fields:[
+  name: 'experienceByYear',
+  title: 'Experience By Year',
+  type: 'document',
+  fields: [
+    {
+      name: 'year',
+      title: 'Year',
+      type: 'string', // For example: "2018 - 2019"
+    },
+    {
+      name: 'skills',
+      title: 'Skills',
+      type: 'array',
+      of: [
         {
-          name: 'expIcons',
-          title: 'Enter experience icon e.g React',
-          type: 'array',      
-            of: [{ type: 'image' }]
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
         },
-    ]
-  }
-  
+      ],
+    },
+  ],
+};

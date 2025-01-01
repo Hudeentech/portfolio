@@ -1,11 +1,14 @@
 import about from './about';
 import projects from './projects';
-import contact from './contact';
 import skills from './skills';
 import service from './service';
 import experience from './experience';
 import hero from './hero';
 import expWallpaper from './expWallpaper';
 import years from './years';
+import aboutPage from './aboutPage';
+import projectPage from './projectPage';
+import footer from './footer';
+import CV from './CV';
 
-export const schemaTypes = [about, years, expWallpaper, experience, skills, service, projects, hero, contact]
+export const schemaTypes = [about, years, CV, projectPage, expWallpaper, aboutPage, experience, skills, service, projects, hero, footer]

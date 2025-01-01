@@ -3,7 +3,7 @@ header{
     max-width: 1280px;
     width: 90%;
     position: relative;
-    height: 100vh;
+    min-height: 100dvh;
     padding: 1em;
     background: url('../../assets/Rectangle\ 28.png');
 }
@@ -77,6 +77,12 @@ width: 50%;
     display: flex;
     justify-content: left;
     gap: .55em;
+
+    a{
+        i{
+            font-size: 2.5rem;
+        }
+    }
 }
 
 .patterns{
@@ -113,11 +119,14 @@ width: 50%;
     }
     .social-icons{
         width: 40px;
+
+        a{
+            i{
+                font-size: 1.7rem;
+            }
+        }
     }
 
-    .social-icons>img{
-        width: 40px;
-    }
 }
 
 @media screen and (max-width:760px) {

@@ -1,6 +1,8 @@
 .svc{
     position: relative;
-    padding: 2em 0;
+    padding:0;
+    min-height: 80dvh;
+    max-width: 1480px;
 }
 .svc> .patterns{
    top: 0;
@@ -15,7 +17,7 @@
 
 .svc > h4{
 text-align: center;
-margin: auto;
+margin:auto;
 width: 90%;
 }
 .svc-container>h2{
@@ -27,18 +29,21 @@ width: 90%;
 
 .svc-card-container{
     display: grid;
-    grid-template-columns:repeat(2, 27%) ;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 320px)) ;
     justify-content: center;
     align-items: center;
-    gap: 2em;
+    gap: 1em;
     margin: 2em auto;
+    width: 95%;
     
     
 }
 
 .svc-card{
     background-color: var(---primary-400);
-    padding: 2em;
+    padding: 1.8em;
+    border-radius: 10px;
+    height: 100%;
 }
 
 .svc-card> h4{
@@ -49,10 +54,10 @@ width: 90%;
     margin: .5em;
 }
 
-@media screen and (max-width:900px) {
+@media screen and (max-width:960px) {
     .svc-card-container{
     display: grid;
-    grid-template-columns:repeat(2, 30%) ;
+    grid-template-columns: repeat(2, 35%);
     justify-content: center;
     align-items: center;
     gap: 2em;
