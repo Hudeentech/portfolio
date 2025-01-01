@@ -62,7 +62,7 @@ function Testimonial() {
         .fill({
           name: "Hamzah Danesi",
           title: "Director of Design | ACE",
-          image: "/src/assets/Ellipse 123.jpg",
+          image: "./src/assets/Ellipse 123.jpg",
           feedback:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo nulla excepturi a iste quis id. Vero fugit sunt perspiciatis repudiandae repellendus laborum, fuga harum cumque quae sed earum molestias illo.",
         })

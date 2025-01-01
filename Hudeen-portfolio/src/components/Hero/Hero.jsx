@@ -91,7 +91,7 @@ function Hero() {
             {/* Patterns Image */}
             <motion.img
               className="patterns"
-              src="/src/assets/Mask group.png"
+              src="./src/assets/Mask group.png"
               alt="Decorative patterns"
               variants={fadeVariants}
             />
