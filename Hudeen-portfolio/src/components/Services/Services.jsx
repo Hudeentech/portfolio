@@ -55,7 +55,7 @@ function Services() {
         whileInView="visible"
       >
         <motion.h2>
-          With extensive <span className="abt-contrast">experience</span> in <span className="abt-contrast">interactive design</span>, I've collaborated with end organizations
+          Empowering Solutions, Discover What I Offer
         </motion.h2>
       </motion.div>
 

@@ -88,7 +88,7 @@ function Nav() {
         onClick={downloadResume}
         disabled={!resumeUrl} // Disable button if no resume URL
       >
-        {resumeUrl ? "Download CV" : "CV Unavailable"}
+        {resumeUrl ? "Download CV" : "pending .."}
       </button>
 
       {/* Burger Icon for Small Screens */}

@@ -68,6 +68,9 @@ button {
   transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
 }
 
+h4{
+  color: gold;
+}
 
 button:hover {
   border-color: rgb(255, 255, 255);

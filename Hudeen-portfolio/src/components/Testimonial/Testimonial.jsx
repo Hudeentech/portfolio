@@ -38,10 +38,7 @@ function Testimonial() {
       >
       <motion.h4>Testimonial</motion.h4>
       <motion.h2>
-        I've <span className="abt-contrast">collaborated</span> with
-        innovative teams and{" "}
-        <span className="abt-contrast">industry professionals</span> on the
-        development of their cutting-edge products.
+        Developed cutting-edge products with innovative teams
       </motion.h2>
       </motion.div>
 
@@ -62,7 +59,7 @@ function Testimonial() {
         .fill({
           name: "Hamzah Danesi",
           title: "Director of Design | ACE",
-          image: "./src/assets/Ellipse 123.jpg",
+          image: "/src/assets/Ellipse 123.jpg",
           feedback:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo nulla excepturi a iste quis id. Vero fugit sunt perspiciatis repudiandae repellendus laborum, fuga harum cumque quae sed earum molestias illo.",
         })

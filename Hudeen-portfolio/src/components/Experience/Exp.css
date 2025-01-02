@@ -87,7 +87,7 @@
     
 
     .exp-heading-container >h2{
-        font-size:1.8em ;
+        font-size:1.7em ;
         width: auto;
         line-height: 1.2em;
     }
@@ -116,7 +116,7 @@
 @media screen  and (max-width:760px){
 
     .exp-heading-container >h2{
-        font-size:2em ;
+        font-size:1.8em ;
         width: 85%;
         line-height: 1.2em;
     }

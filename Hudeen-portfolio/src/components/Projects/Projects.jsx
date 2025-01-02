@@ -68,8 +68,7 @@ function Projects({ blog, onClick }) {
       >
       <motion.h4 variants={titleVariants}>My projects</motion.h4>
       <motion.h2 variants={titleVariants}>
-        Exploring the Digital Canvas:
-        <span className="abt-contrast"> My Portfolio</span> Showcase
+        Innovation in Action: Project Showcase
       </motion.h2>
       </motion.div>
 
