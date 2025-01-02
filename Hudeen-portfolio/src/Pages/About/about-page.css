@@ -57,8 +57,8 @@
     margin: auto;
 
     p{
-      padding-top:.5em;
-      text-align: justify;
+      padding-top:1em;
+      text-align: left;
     }
   }
   .detail-card-BIO >h2{
