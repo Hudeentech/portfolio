@@ -36,7 +36,8 @@ const AboutPage = () => {
             hobbies,
             skills,
             experience,
-            language
+            language,
+            bio2
           }
         }
       `);
@@ -79,6 +80,7 @@ const AboutPage = () => {
       >
         <h2>{aboutData.name}</h2>
         <p>{aboutData.bio}</p>
+        <p>{aboutData.bio2}</p>
       </motion.div>
 
       <motion.div

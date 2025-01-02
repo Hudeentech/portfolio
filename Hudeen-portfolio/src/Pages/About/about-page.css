@@ -8,6 +8,7 @@
   flex-direction: column;
   gap: 1em;
   text-transform: capitalize;
+  width: 100%;
 }
 .loadnav{
   position: absolute;
@@ -40,9 +41,10 @@
   }
   
   .profile-image {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
+    object-fit: cover;
   }
   
   .detail-card-BIO{
@@ -54,6 +56,10 @@
     width: 95%;
     margin: auto;
 
+    p{
+      padding-top:.5em;
+      text-align: justify;
+    }
   }
   .detail-card-BIO >h2{
     color: var(---primary-300);

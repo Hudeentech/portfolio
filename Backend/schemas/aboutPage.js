@@ -14,6 +14,11 @@ export default {
         type: 'text',
       },
       {
+        name: 'bio2',
+        title: 'Biography',
+        type: 'text',
+      },
+      {
         name: 'imageUrl',
         title: 'Image URL',
         type: 'image',
