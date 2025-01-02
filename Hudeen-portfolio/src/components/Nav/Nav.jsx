@@ -56,13 +56,14 @@ function Nav() {
   };
 
   return (
-    <div className="nav-container">
+    <motion.div 
+    className="nav-container">
       {/* Desktop Navigation */}
       <motion.div
+          initial={{scale:0,  opacity: 0, rotate: 0 }}
+          animate={{scale:1, opacity: 1 , rotate: 360 }}
+          transition={{ duration: 0.8, ease: "easeIn" }}
         className="logo-container"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <img
           src={img}
@@ -133,7 +134,7 @@ function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 

@@ -69,7 +69,7 @@ width: 90%;
 @media screen and (max-width:760px) {
     .svc-card-container{
     display: grid;
-    grid-template-columns:repeat(2, 35%) ;
+    grid-template-columns:repeat(2, 45%) ;
     justify-content: center;
     align-items: center;
     gap: 2em;
