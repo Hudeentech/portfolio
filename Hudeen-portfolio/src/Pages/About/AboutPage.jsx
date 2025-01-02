@@ -28,6 +28,7 @@ const AboutPage = () => {
         *[_type == "aboutInfo"][0] {
           name,
           bio,
+          bio2,
           "imageUrl": imageUrl.asset->url,
           otherInfo {
             age,
@@ -37,7 +38,6 @@ const AboutPage = () => {
             skills,
             experience,
             language,
-            bio2
           }
         }
       `);
