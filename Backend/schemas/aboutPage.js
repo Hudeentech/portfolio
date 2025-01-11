@@ -11,12 +11,8 @@ export default {
       {
         name: 'bio',
         title: 'Biography',
-        type: 'text',
-      },
-      {
-        name: 'bio2',
-        title: 'Biography',
-        type: 'text',
+        type: 'array',
+        of: [{type: 'block'}],
       },
       {
         name: 'imageUrl',

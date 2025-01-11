@@ -4,6 +4,7 @@ import Nav from "../../components/Nav/Nav";
 import { urlFor, client } from "../../client.js";
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer/Footer";
+import { PortableText } from '@portabletext/react';
 
 const AboutPage = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -79,8 +80,7 @@ const AboutPage = () => {
         viewport={{ once: true, amount: 0.5 }}
       >
         <h2>{aboutData.name}</h2>
-        <p>{aboutData.bio}</p>
-        <p>{aboutData.bio2}</p>
+        <PortableText value={aboutData.bio} />
       </motion.div>
 
       <motion.div

@@ -4,6 +4,7 @@ import Nav from "../../components/Nav/Nav";
 import "./project-page.css";
 import { urlFor, client } from "../../client.js";
 import Footer from "../../components/Footer/Footer";
+import { PortableText } from "@portabletext/react";
 
 function ProjectPage() {
   const [projectData, setProjectData] = useState([]);
@@ -22,7 +23,8 @@ function ProjectPage() {
           demoLink,
           behance,
           tag,
-          case
+          case,
+          overview
         }
       `);
       setProjectData(data);
@@ -150,7 +152,7 @@ function ProjectPage() {
                 </a>
               ) : (
                 <>
-                  <p>{selectedProject.desc}</p>
+                  <PortableText value={selectedProject.overview} />
                   <a
                     href={selectedProject.demoLink}
                     target="_blank"

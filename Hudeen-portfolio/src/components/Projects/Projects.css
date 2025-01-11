@@ -216,48 +216,88 @@
   .modal-content {
     background: #1c1c1c;
     border-radius: 10px;
-    padding: 20px;
     max-width: 1080px;
-    width: 90%;
+    width:100% ;
+    height: 100dvh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
     text-align: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 
   }
+
 
   .modal-text-container{
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    justify-content: center;
+    align-items: start;
+    padding: 1em;
+    gap: .8em;
 
     h2{
         text-transform: capitalize;
     }
+    h1{
+        padding: 1em 0 0 .3em;
+    }
+    p{
+        display: block;
+        font-size:1rem;
+    }
+    ul{
+        padding:1em;
+        display: flex;
+        flex-direction: column;
+        gap: .8em ;
+    }
+    strong{
+        display: inline-block;
+        margin-right: .5em;
+        width:fit-content;
+        padding: 0 !important;
+    }
+    a{
+        display: block;
+        padding-top: .5em;
+    }
   }
+
   
   .modal-close {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: .5em;
+    right: .5em;
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
+    width: fit-content;
+    padding: .3em .7em;
+    background-color: var(---primary-300);
   }
   
   .modal-image {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    min-width: 100%;
+  }
+  
+  @media (max-width:500px){
+    .modal-image {
+        max-width: 100%;
+   
+      }
+      .modal-content{
+        padding: .5em;
+      }
+    
   }
   
   .modal-links {
     margin-top: 20px;
+    padding: 16px;
+    width: 100%;
   }
   
   .demo-link {
@@ -265,11 +305,12 @@
     padding: 10px 20px;
     background:gold;
     color: #171717;
-    border-radius: 5px;
+    border-radius: 50px;
     text-decoration: none;
     transition: background 0.3s;
   }
   
   .demo-link:hover {
-    background: #0056b3;
+    background: white;
+    color: #171717;
   }

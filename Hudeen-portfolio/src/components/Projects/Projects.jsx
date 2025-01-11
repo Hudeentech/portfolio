@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { urlFor, client } from "../../client.js";
 import { motion } from "framer-motion"; // Import motion from framer-motion
+import {PortableText} from "@portabletext/react";
 
 import "./Projects.css";
 
@@ -56,6 +57,20 @@ function Projects({ blog, onClick }) {
       transition: { duration: 0.5, ease: "easeOut" },
     },
   };
+
+  // Add this useEffect at the beginning of your component
+  useEffect(() => {
+    if (showArticle) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showArticle]);
 
   return (
     <div className="prj-c">
@@ -155,8 +170,8 @@ function Projects({ blog, onClick }) {
           className="modal-image"
         />
        <div className="modal-text-container">
-       <h2>{selectedProject.projectName}</h2>
-        <p>{selectedProject.overview}</p>
+          <PortableText value={selectedProject.overview} />
+        </div>
         <div className="modal-links">
           <a 
           href={selectedProject.liveDemo} 
@@ -167,7 +182,6 @@ function Projects({ blog, onClick }) {
           View Live Demo
           </a>
         </div>
-       </div>
         </motion.div>
       </motion.div>
       )}

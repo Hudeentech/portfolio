@@ -11,14 +11,14 @@ export default {
     {
       name: 'desc',
       title: 'Description',
-      type: 'text',
+      type: 'string',
     },
     {
       name: 'imageUrl',
       title: 'Image',
       type: 'image',
       options: {
-        hotspot: true, // Enable image cropping
+        hotspot: true,
       },
     },
     {
@@ -36,10 +36,21 @@ export default {
       title: 'Behance Link',
       type: 'url',
     },
+    
+    {
+      name: 'overview',
+      title: 'Overview',
+      type: 'array',
+      of: [{type: 'block'}],
+    },
+
     {
       name: 'case',
       title: "My Case Study",
       type: 'image',
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: 'tag',
@@ -50,7 +61,7 @@ export default {
           { title: 'UI', value: 'ui' },
           { title: 'Web', value: 'web' },
           { title: 'App', value: 'app' },
-        ], // Add more tags if necessary
+        ],
       },
     },
   ],
