@@ -147,7 +147,7 @@ function ProjectPage() {
                 className="p-modal-img"
                 />
 
-              <PortableText value={selectedProject.overview} />
+              <PortableText listNestingMode="" value={selectedProject.overview} />
 
                 <img
                 src={urlFor(selectedProject.case2)}

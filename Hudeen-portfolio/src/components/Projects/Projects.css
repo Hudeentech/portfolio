@@ -226,12 +226,6 @@
     overflow-x: hidden;
     scroll-behavior: smooth;
   
-    ul{
-        li{
-        padding: .5em 1.6em;
-        }
-    }
-
   }
 
 
