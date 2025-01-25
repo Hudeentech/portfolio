@@ -24,6 +24,8 @@ function ProjectPage() {
           behance,
           tag,
           case,
+          case2,
+          conclusion,
           overview
         }
       `);
@@ -135,12 +137,24 @@ function ProjectPage() {
               <button className="p-close-modal-btn" onClick={closeModal}>
                 <i className="fas fa-close"></i>
               </button>
+
               <h2>{selectedProject.projectName}</h2>
+              <p>{selectedProject.desc}</p>
+
               <img
                 src={urlFor(selectedProject.case)}
                 alt={selectedProject.projectName}
                 className="p-modal-img"
-              />
+                />
+
+              <PortableText value={selectedProject.overview} />
+
+                <img
+                src={urlFor(selectedProject.case2)}
+                alt={selectedProject.projectName}
+                className="p-modal-img"
+                />
+                <PortableText value={selectedProject.conclusion} />
               {selectedProject.tag === "ui" ? (
                 <a
                   href={selectedProject.behance}

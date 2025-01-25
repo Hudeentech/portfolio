@@ -36,6 +36,15 @@ export default {
       title: 'Behance Link',
       type: 'url',
     },
+
+    {
+      name: 'case',
+      title: "My Case Study",
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
     
     {
       name: 'overview',
@@ -45,12 +54,18 @@ export default {
     },
 
     {
-      name: 'case',
-      title: "My Case Study",
+      name: 'case2',
+      title: "My Case Study2",
       type: 'image',
       options: {
         hotspot: true,
       },
+    },
+    {
+      name: 'conclusion',
+      title: 'conclusion',
+      type: 'array',
+      of: [{type: 'block'}],
     },
     {
       name: 'tag',
