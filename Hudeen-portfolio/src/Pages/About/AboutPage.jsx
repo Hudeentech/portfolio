@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import "./about-page.css"; // Import the CSS file for styling
 import Nav from "../../components/Nav/Nav";
 import { urlFor, client } from "../../client.js";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../../components/Footer/Footer";
 import { PortableText } from '@portabletext/react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const AboutPage = () => {
   const [aboutData, setAboutData] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -22,7 +25,6 @@ const AboutPage = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await client.fetch(`
@@ -30,7 +32,11 @@ const AboutPage = () => {
           name,
           bio,
           bio2,
-          "imageUrl": imageUrl.asset->url,
+          imageUrl[] {
+            asset-> {
+              url
+            }
+          },
           otherInfo {
             age,
             location,
@@ -44,9 +50,19 @@ const AboutPage = () => {
       `);
       setAboutData(data);
     };
-
+  
     fetchData();
-  }, []);
+  
+    // Slideshow timer
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex === aboutData?.imageUrl?.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+  
+    // Cleanup function
+    return () => clearInterval(timer);
+  }, [aboutData?.imageUrl?.length]);
 
   if (!aboutData) return <div className="loading"><div className="loadnav"><Nav /></div><div><h1>Loading... 🙏</h1> <p>please wait or refresh 🔃</p></div></div>;
 
@@ -55,23 +71,48 @@ const AboutPage = () => {
     <>
     <Nav />
 
-    <motion.div
+    <motion.article
       className="about-container"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% of container is visible
     >
-      <motion.div
-        className="profile-c"
-        variants={itemVariants}
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        <img
-          src={urlFor(aboutData.imageUrl)}
-          alt={aboutData.name}
-          className="profile-image"
-        />
+     <motion.div className="profile-c">
+        <motion.div
+          className="profile-c"
+          variants={itemVariants}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <div className="slideshow-container">
+            <AnimatePresence mode='wait'>
+              <motion.img
+                key={currentIndex}
+                src={urlFor(aboutData?.imageUrl[currentIndex])}
+                alt={`Profile ${currentIndex + 1}`}
+                className="profile-image"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: .5 }}
+              />
+            </AnimatePresence>
+            <div className="slideshow-controls">
+              <button
+              className='left'
+                onClick={() => setCurrentIndex(prev => prev === 0 ? aboutData?.imageUrl?.length - 1 : prev - 1)}
+              >
+                <i className='fas fa-chevron-left'></i>
+              </button>
+              <button
+              className='right'
+                onClick={() => setCurrentIndex(prev => prev === aboutData?.imageUrl?.length - 1 ? 0 : prev + 1)}
+              >
+                <i className='fas fa-chevron-right'></i>
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
       <motion.div
@@ -83,7 +124,7 @@ const AboutPage = () => {
         <PortableText value={aboutData.bio} />
       </motion.div>
 
-      <motion.div
+      <motion.article
         className="detail-card1"
         variants={itemVariants}
         viewport={{ once: true, amount: 0.5 }}
@@ -101,9 +142,9 @@ const AboutPage = () => {
         <p>
           <b>Native Language:  </b> {aboutData.otherInfo.language}
         </p>
-      </motion.div>
+      </motion.article>
 
-      <motion.div
+      <motion.article
         className="detail-card2"
         variants={itemVariants}
         viewport={{ once: true, amount: 0.5 }}
@@ -120,9 +161,9 @@ const AboutPage = () => {
             </motion.li>
           ))}
         </ul>
-      </motion.div>
+      </motion.article>
 
-      <motion.div
+      <motion.article
         className="detail-card3"
         variants={itemVariants}
         viewport={{ once: true, amount: 0.5 }}
@@ -140,9 +181,9 @@ const AboutPage = () => {
             </motion.p>
           ))}
         </div>
-      </motion.div>
+      </motion.article>
 
-      <motion.div
+      <motion.article
         className="detail-card4"
         variants={itemVariants}
         viewport={{ once: true, amount: 0.5 }}
@@ -159,8 +200,8 @@ const AboutPage = () => {
             </motion.p>
           ))}
         </div>
-      </motion.div>
-    </motion.div>
+      </motion.article>
+    </motion.article>
     <Footer />
   </>
   );

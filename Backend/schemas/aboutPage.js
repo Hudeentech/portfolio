@@ -17,10 +17,15 @@ export default {
       {
         name: 'imageUrl',
         title: 'Image URL',
-        type: 'image',
-        options: {
-          hotspot: true, // Enable image cropping
-        },
+        type: 'array',
+        of: [
+          {
+            type: 'image',
+            options: {
+              hotspot: true,
+            },
+          },
+        ],
       },
       {
         name: 'otherInfo',
