@@ -97,7 +97,7 @@ const AboutPage = () => {
                 transition={{ duration: .5 }}
               />
             </AnimatePresence>
-            <div className="slideshow-controls">
+
               <button
               className='left'
                 onClick={() => setCurrentIndex(prev => prev === 0 ? aboutData?.imageUrl?.length - 1 : prev - 1)}
@@ -110,7 +110,6 @@ const AboutPage = () => {
               >
                 <i className='fas fa-chevron-right'></i>
               </button>
-            </div>
           </div>
         </motion.div>
       </motion.div>
