@@ -83,7 +83,7 @@ export default {
             name: 'experience',
             title: 'Experience',
             type: 'array',
-            of: [{ type: 'string' }],
+            of: [{type: 'block'}],
           },
         ],
       },

@@ -13,7 +13,6 @@ const AboutPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const containerVariants = {
-    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { staggerChildren: 0.3 },
@@ -21,7 +20,6 @@ const AboutPage = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
@@ -74,8 +72,8 @@ const AboutPage = () => {
     <motion.article
       className="about-container"
       variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
+      initial="visible" // Start animation on load
+      animate="visible"
       viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% of container is visible
     >
      <motion.div className="profile-c">
@@ -187,17 +185,9 @@ const AboutPage = () => {
         variants={itemVariants}
         viewport={{ once: true, amount: 0.5 }}
       >
-        <h2>Experience</h2>
+        <h1>Experience</h1>
         <div>
-          {aboutData.otherInfo.experience.map((exp) => (
-            <motion.p
-              key={exp}
-              variants={itemVariants}
-              viewport={{ once: true, amount: 0.5 }}
-            >
-              {exp}
-            </motion.p>
-          ))}
+        <PortableText value={aboutData.otherInfo.experience} />
         </div>
       </motion.article>
     </motion.article>
