@@ -1,20 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Testimonial.css";
 import Marquee from 'react-fast-marquee';
+import { toast } from 'react-toastify';
+
+const BACKEND_URL = 'http://localhost:3000';
+
+const fetchTestimonials = async () => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/testimonials`);
+    if (!response.ok) throw new Error('Failed to fetch testimonials');
+    return response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
 
 function Testimonial() {
-  // Animation Variants
+  const [testimonials, setTestimonials] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchTestimonials();
+        setTestimonials(data);
+      } catch (error) {
+        toast.error('Could not load testimonials');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadTestimonials();
+  }, []);
+
   const containerVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Stagger effect for children
+        staggerChildren: 0.2,
       },
     },
   };
 
-  const cardVariants = {
+  const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -23,64 +66,113 @@ function Testimonial() {
     },
   };
 
+  if (isLoading) {
+    return (
+      <div className="testimonial">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="tst-loading"
+        >
+          Loading testimonials...
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Split testimonials into two arrays for the two rows
+  const midPoint = Math.ceil(testimonials.length / 2);
+  const firstRowTestimonials = testimonials.slice(0, midPoint);
+  const secondRowTestimonials = testimonials.slice(midPoint);
+
   return (
-    <motion.div
+    <motion.section
       initial="hidden"
       whileInView="visible"
-      variants={cardVariants}
+      viewport={{ once: true }}
+      variants={containerVariants}
       className="testimonial"
     >
       <motion.div 
-      initial="hidden"
-      whileInView="visible"
-      variants={cardVariants}
-      className="tst-title"
+        variants={itemVariants}
+        className="tst-title"
       >
-      <motion.h4>Testimonial</motion.h4>
-      <motion.h2>
-        Developed cutting-edge products with innovative teams
-      </motion.h2>
+        <h4>Testimonials</h4>
+        <h2>What People Say About My Work</h2>
       </motion.div>
 
       <motion.div
-      className="tst-c-container"
-      initial="hidden"
-      whileInView="visible"
-      variants={containerVariants}
+        className="tst-c-container"
+        variants={containerVariants}
       >
-      <Marquee 
-        speed={100}
-        gradient={false}
-        pa
-        pauseOnHover={true}
-        className="tst-marquee"
-      >
-        {Array(3)
-        .fill({
-          name: "Hamzah Danesi",
-          title: "Director of Design | ACE",
-          image: "/src/assets/Ellipse 123.jpg",
-          feedback:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo nulla excepturi a iste quis id. Vero fugit sunt perspiciatis repudiandae repellendus laborum, fuga harum cumque quae sed earum molestias illo.",
-        })
-        .map((testimonial, index) => (
-          <motion.div key={index} className="tst" variants={cardVariants}>
-          <div className="tst-img">
-            <img src={testimonial.image} alt={testimonial.name} />
-            <div>
-            <h3>{testimonial.name}</h3>
-            <i>{testimonial.title}</i>
-            </div>
-          </div>
-          <div className="tst-w">
-            <p>{testimonial.feedback}</p>
-          </div>
-          </motion.div>
-        ))}
-      </Marquee>
+        {/* First row - moving right */}
+        <div className="marquee-row">
+          <Marquee 
+            speed={isMobile ? 30 : 40}
+            gradient={false}
+            pauseOnHover={true}
+            direction="left"
+          >
+            {firstRowTestimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial._id || `row1-${index}`}
+                className="tst"
+                variants={itemVariants}
+              >
+                <div className="tst-img">
+                  <img 
+                    src={testimonial.image ? `${testimonial.image}` : '/default-avatar.png'} 
+                    alt={`${testimonial.name}'s profile`}
+                    loading="lazy"
+                  />
+                  <div>
+                    <h3>{testimonial.name}</h3>
+                    <i>{testimonial.company} • {testimonial.jobTitle}</i>
+                  </div>
+                </div>
+                <div className="tst-w">
+                  <p>{testimonial.message}</p>
+                </div>
+              </motion.div>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Second row - moving left */}
+        <div className="marquee-row">
+          <Marquee 
+            speed={isMobile ? 30 : 40}
+            gradient={false}
+            pauseOnHover={true}
+            direction="right"
+          >
+            {secondRowTestimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial._id || `row2-${index}`}
+                className="tst"
+                variants={itemVariants}
+              >
+                <div className="tst-img">
+                  <img 
+                    src={testimonial.image ? `${testimonial.image}` : '/default-avatar.png'} 
+                    alt={`${testimonial.name}'s profile`}
+                    loading="lazy"
+                  />
+                  <div>
+                    <h3>{testimonial.name}</h3>
+                    <i>{testimonial.company} • {testimonial.jobTitle}</i>
+                  </div>
+                </div>
+                <div className="tst-w">
+                  <p>{testimonial.message}</p>
+                </div>
+              </motion.div>
+            ))}
+          </Marquee>
+        </div>
       </motion.div>
-    </motion.div>
-    );
+    </motion.section>
+  );
 }
 
 export default Testimonial;

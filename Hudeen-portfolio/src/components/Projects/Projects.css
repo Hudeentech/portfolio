@@ -12,12 +12,19 @@
     width: 90%;
     margin: auto;
     padding: 1em;
+    line-height: 1.3;
+    font-weight: 700;
+    background: linear-gradient(180deg, var(---primary-100), var(---primary-400));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .prj-title >h4{
     text-align: center;
     margin: auto;
     padding-bottom: 1em;
+    color: var(---primary-300);
+
 }
 .prj-title>h2{
     font-size: 2.8em;
