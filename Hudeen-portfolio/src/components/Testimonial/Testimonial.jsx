@@ -4,7 +4,7 @@ import "./Testimonial.css";
 import Marquee from 'react-fast-marquee';
 import { toast } from 'react-toastify';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = 'https://testimonial-system.vercel.app/api/testimonials';
 
 const fetchTestimonials = async () => {
   try {
