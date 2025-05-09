@@ -4,15 +4,18 @@ import "./Testimonial.css";
 import Marquee from 'react-fast-marquee';
 import { toast } from 'react-toastify';
 
-const BACKEND_URL = 'https://testimonial-system.vercel.app/api/testimonials';
+const BACKEND_URL = 'https://testimonial-system.vercel.app';
 
 const fetchTestimonials = async () => {
   try {
     const response = await fetch(`${BACKEND_URL}/api/testimonials`);
-    if (!response.ok) throw new Error('Failed to fetch testimonials');
-    return response.json();
+    if (!response.ok) {
+      throw new Error('Failed to fetch testimonials');
+    }
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error fetching testimonials:', error);
     throw error;
   }
 };
@@ -38,7 +41,8 @@ function Testimonial() {
         const data = await fetchTestimonials();
         setTestimonials(data);
       } catch (error) {
-        toast.error('Could not load testimonials');
+        toast.error('Could not load testimonials. Please try again later.');
+        setTestimonials([]);
       } finally {
         setIsLoading(false);
       }
@@ -58,10 +62,9 @@ function Testimonial() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, },
     visible: {
       opacity: 1,
-      y: 0,
       transition: { duration: 0.6, ease: "easeOut" },
     },
   };
