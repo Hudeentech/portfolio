@@ -125,7 +125,7 @@ function Testimonial() {
                 <div className="tst-name-card-info">
                   <span className="tst-name-card-name">{testimonial.name}</span>
                   {(testimonial.role || testimonial.company) && (
-                    <span className="tst-name-card-job">{`${testimonial.role || ''}${testimonial.role && testimonial.company ? ', ' : ''}${testimonial.company || ''}`}</span>
+                    <span className="tst-name-card-job">{`${testimonial.role || ''}${testimonial.role && testimonial.company ? ' ● ' : ''}${testimonial.company || ''}`}</span>
                   )}
                 </div>
               </motion.div>
