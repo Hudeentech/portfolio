@@ -4,12 +4,16 @@
   --color-orange: #FFA500; /* Standard Orange */
   --color-gradient-start: #FFD700; /* Gold */
   --color-gradient-end: #FFA500; /* Orange */
-  --color-dark-background: #1c1c1c; /* Main background */
-  --color-medium-dark-background: #2b2b2b; /* Card backgrounds */
+  --color-dark-background: #121212; /* Main app background - very dark */
+  --color-medium-dark-background: #1e1e1e; /* Section/container background */
+  --color-card-background: #2a2a2a; /* Lighter background for the name cards */
+  --color-card-hover: #3a3a3a; /* Hover state for name cards */
+  --color-card-selected: #4a4a4a; /* Selected state for name cards */
   --color-text-light: #f0f0f0; /* General light text */
-  --color-text-muted: #aaaaaa; /* Muted text like job title */
+  --color-text-muted: #aaaaaa; /* Muted text like job title/date */
   --color-border-dark: #3a3a3a; /* Dark border for elements */
-  --color-shadow-dark: rgba(0, 0, 0, 0.4); /* Dark shadow */
+  --color-shadow-dark: rgba(0, 0, 0, 0.5); /* Darker shadows */
+  --color-star: #FFD700; /* Gold for stars */
 
   /* Primary color aliases (matching previous vars conceptually) */
   ---primary-100: var(--color-text-light);
@@ -27,14 +31,14 @@ body {
   padding: 0;
   color: var(--color-text-light);
   min-height: 100vh;
-  display: flex; /* Helps center the testimonial section */
+  display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
-
 /* --- Main Testimonial Section --- */
-.testimonial-section { /* Renamed from .testimonial to avoid clashes */
+.testimonial-section {
   min-height: 100svh;
   max-width: 1400px;
   width: 100%;
@@ -45,7 +49,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  box-sizing: border-box; /* Include padding in element's total width and height */
+  box-sizing: border-box;
 }
 
 /* --- Title Section --- */
@@ -82,7 +86,7 @@ body {
 
 .tst-title > h4 {
   font-size: 1.2rem;
-  color: var(--color-gold); /* Gold color for sub-heading */
+  color: var(--color-gold);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -92,189 +96,264 @@ body {
   font-size: 2.8rem;
   line-height: 1.3;
   font-weight: 700;
-  background: linear-gradient(180deg, var(--color-gold), var(--color-orange)); /* Gold to Orange gradient */
+  background: linear-gradient(180deg, var(--color-gold), var(--color-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
-/* --- Slider Container --- */
-.tst-slider-container {
-  position: relative;
+/* --- Main Content Area (Two Columns) --- */
+.tst-main-content-area {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr; /* Left column narrower, right wider */
+  gap: 2rem;
   width: 100%;
-  max-width: 800px; /* Max width for the slider content */
-  height: 380px; /* Fixed height for the slider to prevent layout shifts */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Hide overflowing slides */
+  max-width: 1200px; /* Adjust max-width for the overall content */
+  min-height: 600px; /* Minimum height to give space for content */
+  box-sizing: border-box;
+  padding: 1rem;
   border-radius: 16px;
-  box-shadow: 0 10px 30px var(--color-shadow-dark);
-  background: var(--color-medium-dark-background);
-  padding: 20px; /* Padding inside the slider container */
-  box-sizing: border-box;
 }
 
-.tst-card-wrapper {
-  position: absolute; /* Allows Framer Motion to animate position */
-  width: 100%;
-  height: 100%;
+/* --- Left Column: Names List Panel --- */
+.tst-names-list-panel {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem; /* Gap between name cards */
+  overflow-y: auto; /* Enable scrolling for the list */
+  padding-right: 10px; /* Space for scrollbar */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-gold) var(--color-border-dark); /* Firefox scrollbar */
+}
+
+/* Custom scrollbar for Webkit browsers */
+.tst-names-list-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.tst-names-list-panel::-webkit-scrollbar-track {
+  background: var(--color-border-dark);
+  border-radius: 4px;
+}
+.tst-names-list-panel::-webkit-scrollbar-thumb {
+  background-color: var(--color-gold);
+  border-radius: 4px;
+  border: 2px solid var(--color-border-dark);
+}
+
+
+/* --- Individual Name Card in Left Column --- */
+.tst-name-card {
+  display: flex;
   align-items: center;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  padding: 20px; /* Ensures card doesn't hit container edges */
-}
-
-/* --- Individual Testimonial Card --- */
-.tst-card {
-  display: flex;
-  flex-direction: column; /* Stack image and content vertically */
-  align-items: center; /* Center items within the card */
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 600px; /* Max width for individual card content */
-  background: var(--color-dark-background); /* Darker background for card */
-  border-radius: 12px;
-  padding: 2rem;
-  box-sizing: border-box;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-card-background); /* Lighter dark background */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
   border: 1px solid var(--color-border-dark);
 }
 
-.tst-card-img-wrap {
-  position: relative; /* For pseudo-element border */
+.tst-name-card:hover {
+  background-color: var(--color-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tst-name-card.selected {
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-orange) 100%); /* Gold to Orange gradient on select */
+  color: var(--color-dark-background); /* Dark text on selected card */
+  box-shadow: 0 6px 15px rgba(255,215,0,0.3);
+  transform: translateY(-3px);
+  border-color: transparent; /* Remove border when selected */
+}
+
+.tst-name-card.selected .tst-name-card-name,
+.tst-name-card.selected .tst-name-card-job {
+  color: var(--color-dark-background); /* Dark text for selected name/job */
+}
+
+.tst-name-card-img-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px; /* Space for the pseudo-element border */
-  border-radius: 50%; /* Keep it circular */
-  background: linear-gradient(45deg, var(--color-gold), var(--color-orange)); /* Gradient base for border */
-  z-index: 1; /* Ensure it's above other elements if needed */
+  padding: 1px; /* Space for gradient border */
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--color-gold), var(--color-orange)); /* Gradient border for small images */
 }
 
-.tst-card-img {
-  width: 96px; /* Larger image size */
-  height: 96px;
+.tst-name-card-img {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  display: block; /* Remove extra space below image */
-  /* Border removed, now handled by parent's background + padding */
-  box-shadow: inset 0 0 0 2px var(--color-dark-background); /* Inner border to create the outline effect */
-  background: var(--color-medium-dark-background); /* Ensure image background is dark */
+  display: block;
+  background-color: var(--color-medium-dark-background); /* Fill inner circle */
 }
 
-.tst-card-content {
+.tst-name-card.selected .tst-name-card-img {
+    box-shadow: inset 0 0 0 2px var(--color-gold); /* Darker inner circle when selected */
+}
+
+.tst-name-card-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* NEW: Left-align content */
-  justify-content: center;
-  text-align: left; /* NEW: Left-align text */
-  width: 100%; /* Take full width of parent */
-}
-
-.tst-card-message {
-  font-size: 1.15rem; /* Adjusted font size */
-  font-weight: 400; /* Lighter weight for message */
-  color: var(--color-text-light); /* Light color for message */
-  margin-bottom: 1rem;
-  font-style: italic;
-  line-height: 1.6;
-  text-align: left; /* Ensure text is left-aligned */
-  width: 100%; /* Ensure text block takes full width */
-}
-/* Remove pseudo-elements for quotes if not desired with new design */
-.tst-card-message::before, .tst-card-message::after {
-  content: none; /* Removed quotes as per new design */
-}
-
-.tst-card-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
   text-align: left;
-  width: 100%; /* Take full width for alignment */
 }
 
-.tst-card-name {
-  font-size: 1.1rem;
-  color: var(--color-gold); /* NEW: Gold color for name */
-  font-weight: 700;
-  letter-spacing: 0.8px;
+.tst-name-card-name {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-transform: capitalize;
 }
 
-.tst-card-job {
-  font-size: 0.9rem;
-  color: var(--color-text-muted); /* Muted color for job/company */
-  font-weight: 400;
-  letter-spacing: 0.5px;
+.tst-name-card-job {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
 }
 
-
-/* --- Slider Navigation Buttons --- */
-.tst-slider-nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
+/* --- Right Column: Full Testimonial Display Panel --- */
+.tst-full-display-panel {
+  position: relative; /* For AnimatePresence positioning */
   display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  padding: 0 10px;
-  z-index: 10;
-  pointer-events: none; /* Allow clicks to pass through if not on button */
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start; /* Align content to the left */
+  padding: 2rem;
+  background-color: var(--color-card-background); /* Use card background for this panel */
+  border-radius: 12px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.2); /* Inner shadow for depth */
+  overflow: hidden; /* Hide overflow during animation */
+  box-sizing: border-box;
 }
 
-.tst-nav-button {
-  background-color: var(--color-medium-dark-background);
-  color: var(--color-gold);
-  border: 1px solid var(--color-border-dark);
-  padding: 10px 15px;
-  border-radius: 50%;
-  cursor: pointer;
+.tst-full-testimonial-content {
+  width: 100%;
+  height: 100%; /* Take full height of parent for exit animation */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  position: relative; /* For absolute positioning during exit animation */
+}
+
+.tst-stars {
+  color: var(--color-star); /* Gold stars */
   font-size: 1.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  pointer-events: auto; /* Re-enable clicks for the button itself */
+  margin-bottom: 0.8rem;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star-icon {
+    /* Optional: further style individual stars if needed */
+}
+
+.tst-full-headline {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-text-light); /* Light text for headline */
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.tst-full-message {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  position: relative;
+  padding-left: 1.5rem; /* Space for quote mark */
+}
+.tst-full-message::before {
+  content: '"';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 2.5rem;
+  color: var(--color-gold);
+  opacity: 0.5;
+  line-height: 0;
+}
+
+
+.tst-full-meta {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 50px; /* Fixed size for circular button */
-  height: 50px;
-}
-
-.tst-nav-button:hover {
-  background-color: var(--color-gold);
-  color: var(--color-dark-background);
-  box-shadow: 0 6px 15px rgba(255,215,0,0.2);
-}
-
-.tst-nav-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--color-gold), 0 0 0 6px var(--color-orange);
-}
-
-
-/* --- No Testimonials Fallback --- */
-.tst-no-data {
+  justify-content: space-between; /* Space out left and right elements */
   width: 100%;
-  min-height: 180px;
+  margin-top: auto; /* Pushes meta to the bottom */
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-dark);
+}
+
+.tst-full-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tst-full-img {
+  width: 60px; /* Smaller image size for meta */
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Use a proper gradient for border, potentially a background with inset box-shadow */
+  background: linear-gradient(45deg, var(--color-gold), var(--color-orange)); /* Gradient background for border effect */
+  padding: 3px; /* Space for the gradient border */
+  box-sizing: content-box; /* Important for padding to add to total size */
+  box-shadow: inset 0 0 0 2px var(--color-card-background); /* Inner shadow for depth */
+}
+
+.tst-full-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.tst-full-name {
+  font-size: 1.1rem;
+  color: var(--color-gold); /* Gold name */
+  font-weight: 700;
+}
+
+.tst-full-job {
+  font-size: 0.9rem;
+  color: var(--color-text-muted); /* Muted job/company */
+}
+
+.tst-full-date {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: right; /* Align date to the right */
+}
+
+/* --- Fallback & Loading Styles --- */
+.tst-no-data-small,
+.tst-no-data-full {
+  width: 100%;
+  min-height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  color: var(--color-text-muted); /* Used text-muted for consistency */
-  background: rgba(var(--primary-400-rgb), 0.08); /* Adjusted alpha */
-  border-radius: 16px;
-  margin: 2rem 0;
-  backdrop-filter: blur(5px); /* Slightly less blur */
-  border: 1px solid rgba(255, 255, 255, 0.05); /* Lighter border */
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  background: rgba(var(--primary-400-rgb), 0.05);
+  border-radius: 10px;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.tst-no-data-full {
+    min-height: 100%; /* Ensure it fills the full panel */
 }
 
 
-/* --- Loading State --- */
 .tst-loading {
   display: flex;
   justify-content: center;
@@ -299,158 +378,150 @@ body {
   100% { opacity: 0.6; }
 }
 
+/* --- Responsive Design --- */
 
-/* --- Responsive Design (Media Queries) --- */
-
-/* Tablet & Smaller Desktops */
+/* Tablets and larger mobile landscape */
 @media screen and (max-width: 1024px) {
-  .testimonial-section {
-    padding: 1.5rem 0.5rem;
+  .tst-main-content-area {
+    grid-template-columns: 1fr; /* Stack columns vertically */
+    min-height: auto; /* Allow height to adjust */
     gap: 1.5rem;
   }
-  .tst-title > h2 {
-    font-size: 2.2rem;
+  .tst-names-list-panel {
+    height: 300px; /* Fixed height for scrollable list on mobile */
+    padding-right: 0;
+    margin-right: 0;
   }
-  .tst-title > h4 {
+  .tst-full-display-panel {
+    min-height: 400px; /* Ensure space for full testimonial */
+  }
+  .tst-full-headline {
+    font-size: 1.8rem;
+  }
+  .tst-full-message {
     font-size: 1rem;
-  }
-  .tst-slider-container {
-    max-width: 600px;
-    height: 350px;
-    padding: 15px;
-  }
-  .tst-card {
-    padding: 1.5rem;
-  }
-  .tst-card-img {
-    width: 80px;
-    height: 80px;
-  }
-  .tst-card-message {
-    font-size: 1rem;
-  }
-  .tst-card-name {
-    font-size: 1rem;
-  }
-  .tst-card-job {
-    font-size: 0.85rem;
-  }
-  .tst-nav-button {
-    width: 45px;
-    height: 45px;
-    font-size: 1.3rem;
   }
 }
 
-/* Mobile Devices */
+/* Smaller mobile devices */
 @media screen and (max-width: 768px) {
   .testimonial-section {
     padding: 1rem 0.5rem;
-    gap: 1rem;
-  }
-  .tst-title {
-    padding: 1rem 0.5rem;
+    gap: 1.5rem;
   }
   .tst-title > h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   .tst-title > h4 {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
-  .tst-slider-container {
-    max-width: 90%; /* Adjust width for mobile */
-    height: 320px; /* Slightly reduced height */
-    padding: 10px;
+  .tst-names-list-panel {
+    height: 250px; /* Adjusted height for smaller screens */
   }
-  .tst-card {
-    padding: 1rem;
-    gap: 1rem;
+  .tst-name-card {
+    /* MOBILE-SPECIFIC LAYOUT FOR NAME CARD: Picture at top, Name below */
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Center text within card */
+    padding: 1rem; /* Adjust padding */
+    gap: 0.5rem; /* Space between elements */
   }
-  .tst-card-img {
-    width: 70px;
-    height: 70px;
+  .tst-name-card-img-wrap {
+    padding: 5px; /* Increase padding for a more visible gradient border */
   }
-  .tst-card-message {
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
+  .tst-name-card-img {
+    width: 60px; /* Slightly larger image on mobile for clarity */
+    height: 60px;
   }
-  .tst-card-name {
-    font-size: 0.95rem;
+  .tst-name-card-info {
+    align-items: center; /* Center name/job within their container */
   }
-  .tst-card-job {
+  .tst-name-card-name {
+    margin-top: 0.2rem; /* Reduce top margin to bring name closer to image */
+    font-size: 1rem;
+  }
+  .tst-name-card-job {
     font-size: 0.8rem;
   }
-  .tst-slider-nav {
-    padding: 0 5px;
+
+  .tst-full-display-panel {
+    padding: 1.5rem;
   }
-  .tst-nav-button {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+  .tst-full-headline {
+    font-size: 1.5rem;
+  }
+  .tst-full-message {
+    font-size: 0.95rem;
+  }
+  .tst-full-img {
+    width: 50px;
+    height: 50px;
+  }
+  .tst-full-name {
+    font-size: 1rem;
+  }
+  .tst-full-job {
+    font-size: 0.85rem;
+  }
+  .tst-full-date {
+    font-size: 0.75rem;
   }
 }
 
-/* Smaller Mobile Devices */
+/* Very small mobile devices */
 @media screen and (max-width: 480px) {
   .testimonial-section {
     padding: 0.5rem;
-    margin: 1rem auto;
-    gap: 0.8rem;
+    gap: 1rem;
   }
   .tst-title > h2 {
     font-size: 1.5rem;
   }
   .tst-title > h4 {
     font-size: 0.8rem;
-    letter-spacing: 1px;
   }
-  .tst-slider-container {
-    height: 300px;
-    padding: 5px;
+  .tst-names-list-panel {
+    height: 200px; /* Further adjust height */
+    display: none;
   }
-  .tst-card {
-    padding: 0.8rem;
-    gap: 0.8rem;
+  .tst-name-card {
+    padding: 0.75rem; /* Smaller padding for very small screens */
+    gap: 0.4rem; /* Smaller gap */
   }
-  .tst-card-img {
-    width: 60px;
-    height: 60px;
-  }
-  .tst-card-message {
-    font-size: 0.85rem;
-    margin-bottom: 0.7rem;
-  }
-  .tst-card-name {
-    font-size: 0.9rem;
-  }
-  .tst-card-job {
-    font-size: 0.75rem;
-  }
-  .tst-nav-button {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-    padding: 8px;
-  }
-}
-
-/* Very Small Mobile Devices */
-@media screen and (max-width: 360px) {
-  .tst-title > h2 {
-    font-size: 1.2rem;
-  }
-  .tst-title > h4 {
-    font-size: 0.7rem;
-  }
-  .tst-slider-container {
-    height: 280px;
-  }
-  .tst-card-img {
-    width: 50px;
+  .tst-name-card-img {
+    width: 50px; /* Adjusted for very small screens */
     height: 50px;
   }
-  .tst-card-message {
+  .tst-name-card-name {
+    font-size: 0.9rem;
+  }
+  .tst-name-card-job {
     font-size: 0.75rem;
   }
+  .tst-full-display-panel {
+    padding: 1rem;
+  }
+  .tst-full-headline {
+    font-size: 1.2rem;
+  }
+  .tst-full-message {
+    font-size: 0.85rem;
+    padding-left: 1rem;
+  }
+  .tst-full-message::before {
+    font-size: 2rem;
+  }
+  .tst-full-img {
+    width: 40px;
+    height: 40px;
+  }
+  .tst-full-name {
+    font-size: 0.8rem;
+  }
+  .tst-full-job {
+    font-size: 0.75rem;
+  }
+  .tst-full-date {
+    font-size: 0.7rem;
+  }
 }
-
