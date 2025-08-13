@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./Testimonial.css";
 
 // Define your backend URL.
-const BACKEND_URL = 'https://hudeen-backend.vercel.app'; // Keep this URL for deployment
+const BACKEND_URL = 'https://hudeen-review.vercel.app'; // Keep this URL for deployment
 
 const AUTOPLAY_INTERVAL = 7000; // Auto-change testimonial every 7 seconds
 
