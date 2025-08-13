@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Import AnimatePresence for exit animations
 import "./Testimonial.css";
-import Marquee from 'react-fast-marquee';
-import { toast } from 'react-toastify';
+// import Marquee from 'react-fast-marquee'; // No longer needed for slider functionality
+// import { toast } from 'react-toastify'; // REMOVED: toast import
 
-const BACKEND_URL = 'https://testimonial-system.vercel.app';
+// Define your backend URL.
+// IMPORTANT: You MUST change this to your deployed backend URL (e.g., 'https://your-backend-api.vercel.app')
+// after you deploy your Node.js server.
+const BACKEND_URL = 'https://hudeen-review.vercel.app'; // Keep this URL for deployment
 
 const fetchTestimonials = async () => {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/testimonials`);
+    const response = await fetch(`${BACKEND_URL}/api/testimonials/approved`);
     if (!response.ok) {
-      throw new Error('Failed to fetch testimonials');
+      const errorData = await response.json().catch(() => ({ message: 'Failed to fetch testimonials' }));
+      throw new Error(errorData.message || 'Failed to fetch testimonials');
     }
     const data = await response.json();
     return data;
@@ -23,16 +27,8 @@ const fetchTestimonials = async () => {
 function Testimonial() {
   const [testimonials, setTestimonials] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [currentIndex, setCurrentIndex] = useState(0); // State to track current testimonial
+  const [direction, setDirection] = useState(0); // 0 for initial, 1 for next, -1 for prev
 
   useEffect(() => {
     const loadTestimonials = async () => {
@@ -41,7 +37,7 @@ function Testimonial() {
         const data = await fetchTestimonials();
         setTestimonials(data);
       } catch (error) {
-        toast.error('Could not load testimonials. Please try again later.');
+        console.error('Could not load testimonials. Please try again later.', error); // Changed toast to console.error
         setTestimonials([]);
       } finally {
         setIsLoading(false);
@@ -51,130 +47,130 @@ function Testimonial() {
     loadTestimonials();
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+  // Function to go to the next testimonial
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
+  // Function to go to the previous testimonial
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Autoplay functionality (optional, can be removed if not desired)
+  useEffect(() => {
+    if (testimonials.length > 1) {
+      const interval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+      return () => clearInterval(interval);
+    }
+  }, [testimonials, nextSlide]); // Added nextSlide to dependency array to avoid stale closure warning
+
+  // Framer Motion variants for slide animation
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0
+    }),
+    center: {
+      x: "0%",
+      opacity: 1
     },
+    exit: (direction) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+      position: "absolute" // Important for smooth exit and entry
+    })
   };
 
   if (isLoading) {
     return (
-      <div className="testimonial">
+      <section className="testimonial-section"> {/* Changed class to avoid conflict with old Testimonial.css */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="tst-loading"
+          style={{ textAlign: 'center', padding: '20px', color: 'gold' }}
         >
           Loading testimonials...
         </motion.div>
-      </div>
+      </section>
     );
   }
 
-  // Split testimonials into two arrays for the two rows
-  const midPoint = Math.ceil(testimonials.length / 2);
-  const firstRowTestimonials = testimonials.slice(0, midPoint);
-  const secondRowTestimonials = testimonials.slice(midPoint);
-
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={containerVariants}
-      className="testimonial"
-    >
-      <motion.div 
-        variants={itemVariants}
-        className="tst-title"
-      >
+    <section className="testimonial-section">
+      <div className="tst-title">
         <h4>Testimonials</h4>
         <h2>What People Say About My Work</h2>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="tst-c-container"
-        variants={containerVariants}
-      >
-        {/* First row - moving right */}
-        <div className="marquee-row">
-          <Marquee 
-            speed={isMobile ? 30 : 40}
-            gradient={false}
-            pauseOnHover={true}
-            direction="left"
-          >
-            {firstRowTestimonials.map((testimonial, index) => (
+      <div className="tst-slider-container">
+        {testimonials.length > 0 ? (
+          <>
+            <AnimatePresence initial={false} custom={direction}>
               <motion.div
-                key={testimonial._id || `row1-${index}`}
-                className="tst"
-                variants={itemVariants}
+                key={currentIndex} // Key changes to re-mount component for animation
+                className="tst-card-wrapper"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                <div className="tst-img">
-                  <img 
-                    src={testimonial.image ? `${testimonial.image}` : '/default-avatar.png'} 
-                    alt={`${testimonial.name}'s profile`}
-                    loading="lazy"
-                  />
-                  <div>
-                    <h3>{testimonial.name}</h3>
-                    <i>{testimonial.company} • {testimonial.jobTitle}</i>
+                {testimonials[currentIndex] && (
+                  <div className="tst-card">
+                    <div className="tst-card-img-wrap">
+                      <img
+                        src={testimonials[currentIndex].pictureUrl || 'https://placehold.co/60x60/1c1c1c/white?text=No+Img'}
+                        alt={`${testimonials[currentIndex].name}'s profile`}
+                        className="tst-card-img"
+                        loading="lazy"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/60x60/1c1c1c/white?text=No+Img'; }}
+                      />
+                    </div>
+                    <div className="tst-card-content">
+                      <p className="tst-card-message">"{testimonials[currentIndex].message}"</p>
+                      <div className="tst-card-meta">
+                        <span className="tst-card-name">{testimonials[currentIndex].name}</span>
+                        {(testimonials[currentIndex].company || testimonials[currentIndex].jobTitle) && (
+                          <span className="tst-card-job">
+                            {testimonials[currentIndex].company && `${testimonials[currentIndex].company}`}
+                            {testimonials[currentIndex].company && testimonials[currentIndex].jobTitle && ` • `}
+                            {testimonials[currentIndex].jobTitle && `${testimonials[currentIndex].jobTitle}`}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="tst-w">
-                  <p>{testimonial.message}</p>
-                </div>
+                )}
               </motion.div>
-            ))}
-          </Marquee>
-        </div>
+            </AnimatePresence>
 
-        {/* Second row - moving left */}
-        <div className="marquee-row">
-          <Marquee 
-            speed={isMobile ? 30 : 40}
-            gradient={false}
-            pauseOnHover={true}
-            direction="right"
-          >
-            {secondRowTestimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial._id || `row2-${index}`}
-                className="tst"
-                variants={itemVariants}
-              >
-                <div className="tst-img">
-                  <img 
-                    src={testimonial.image ? `${testimonial.image}` : '/default-avatar.png'} 
-                    alt={`${testimonial.name}'s profile`}
-                    loading="lazy"
-                  />
-                  <div>
-                    <h3>{testimonial.name}</h3>
-                    <i>{testimonial.company} • {testimonial.jobTitle}</i>
-                  </div>
-                </div>
-                <div className="tst-w">
-                  <p>{testimonial.message}</p>
-                </div>
-              </motion.div>
-            ))}
-          </Marquee>
-        </div>
-      </motion.div>
-    </motion.section>
+            {testimonials.length > 1 && ( // Only show buttons if more than one testimonial
+              <div className="tst-slider-nav">
+                <button onClick={prevSlide} className="tst-nav-button prev">
+                  &#8249; {/* Left arrow */}
+                </button>
+                <button onClick={nextSlide} className="tst-nav-button next">
+                  &#8250; {/* Right arrow */}
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="tst-no-data" style={{ textAlign: 'center', padding: '20px', color: 'white' }}>
+            <p>No testimonials available yet.</p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 
