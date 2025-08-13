@@ -25,6 +25,9 @@ width: 90%;
     width: 90%;
     margin: auto;
     text-align: center;
+    background: linear-gradient(180deg, gold, rgb(255, 166, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .svc-card-container{
