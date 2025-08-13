@@ -459,9 +459,11 @@ body {
   }
   .tst-full-name {
     font-size: 1rem;
+    display: block;
   }
   .tst-full-job {
     font-size: 0.85rem;
+      display: block;
   }
   .tst-full-date {
     font-size: 0.75rem;

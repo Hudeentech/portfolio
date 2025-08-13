@@ -163,7 +163,7 @@ function Testimonial() {
                       onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/60x60/1c1c1c/white?text=No+Img'; }}
                     />
                     <div className="tst-full-info">
-                      <span className="tst-full-name">{selectedTestimonial.name}</span> <br />
+                      <span className="tst-full-name">{selectedTestimonial.name}</span>
                       {(selectedTestimonial.role || selectedTestimonial.company) && (
                         <span className="tst-full-job">{`${selectedTestimonial.role || ''}${selectedTestimonial.role && selectedTestimonial.company ? ' at ' : ''}${selectedTestimonial.company || ''}`}</span>
                       )}
