@@ -287,7 +287,7 @@
 @media (max-width: 600px) {
   .hero-container { padding: 80px 1.25rem 3rem; }
 
-  .hero-heading { font-size: clamp(3rem, 14vw, 5.5rem); }
+  .hero-heading { font-size: clamp(2.5rem, 10vw, 4rem); }
 
   .hero-actions {
     flex-direction: column;

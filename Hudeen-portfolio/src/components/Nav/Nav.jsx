@@ -46,35 +46,40 @@ function Nav() {
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   const sidebarVariants = {
-    hidden: { x: "100%", opacity: 0 },
+    hidden: { 
+      opacity: 0,
+      scale: 0.9,
+      y: -20
+    },
     visible: { 
-      x: 0, 
-      opacity: 1, 
+      opacity: 1,
+      scale: 1,
+      y: 0,
       transition: { 
-        type: "spring", stiffness: 150, damping: 20,
-        staggerChildren: 0.08, delayChildren: 0.1 
+        type: "spring", stiffness: 140, damping: 15, mass: 0.8,
+        staggerChildren: 0.1, delayChildren: 0.15 
       } 
     },
     exit: { 
-      x: "100%", 
-      opacity: 0, 
-      transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } 
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } 
     },
   };
 
   const mobileLinkVariants = {
-    hidden: { opacity: 0, x: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
-      x: 0, 
-      transition: { type: "spring", stiffness: 200, damping: 20 } 
+      y: 0, 
+      transition: { type: "spring", stiffness: 200, damping: 12 } 
     }
   };
 
   const overlayVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.25 } },
-    exit: { opacity: 0, transition: { duration: 0.25 } },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.3 } },
   };
 
   const navLinks = [

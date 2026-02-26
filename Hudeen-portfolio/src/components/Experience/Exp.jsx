@@ -13,6 +13,8 @@ function Exp() {
 
     Promise.all([client.fetch(wallpaperQuery), client.fetch(experienceQuery)])
       .then(([wallpaperData, experienceData]) => {
+        const validWallpaper = wallpaperData && wallpaperData.length > 0 && wallpaperData[0].heading;
+
         const fallBackWData = [
           {
             wallpaper: null,
@@ -22,7 +24,8 @@ function Exp() {
             contrast3: "Experiences",
           }
         ];
-        setWData(wallpaperData?.length ? wallpaperData : fallBackWData);
+        
+        setWData(validWallpaper ? wallpaperData : fallBackWData);
         setYrData(experienceData || []);
       })
       .catch((error) => console.error('Exp fetch error:', error));
