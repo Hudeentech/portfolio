@@ -1,217 +1,306 @@
-header{
-    margin:0 auto;
-    max-width: 1280px;
-    width: 90%;
-    position: relative;
-    min-height: 100dvh;
-    padding: 1em;
-    background: url('../../assets/Rectangle\ 28.png');
+/* ============================================
+   HERO — Magazine editorial layout
+   The nav is 56px tall in a 1.25rem wrapper = ~76px total.
+   We push hero content DOWN with padding-top so nothing overlaps.
+   ============================================ */
+
+.hero-wrapper {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;    /* text sits at bottom (magazine cover style) */
+  overflow: hidden;
+  padding: 0;
+  /* NO top padding here — we handle that inside hero-container */
 }
 
-.overflow{
-    overflow-x:hidden;
-    position: absolute;
-    z-index: -100;
-    top: 100px;
+/* ── Ruled top border (shared with other sections via .Home > section) ── */
+/* Already provided by index.css .Home > section rule */
+
+/* ── Full-bleed background ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+/* Diagonal gold accent strip — editorial flair */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -5%;
+  width: 55%;
+  height: 140%;
+  background: linear-gradient(
+    165deg,
+    var(--ink-soft) 0%,
+    rgba(201, 168, 76, 0.04) 50%,
+    var(--ink) 100%
+  );
+  border-left: 1px solid rgba(201, 168, 76, 0.12);
+  pointer-events: none;
+}
+
+/* ── Content container ── */
+.hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  /* push content below fixed nav (56px nav + 1.25rem*2 wrapper padding ≈ 96px) */
+  padding: 96px 2rem 5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Issue / Status line ── */
+.hero-issue {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--stone);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  padding-bottom: 1.25rem;
+  border-bottom: var(--rule);
+}
+
+.hero-issue-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3CB371;
+  box-shadow: 0 0 10px rgba(60, 179, 113, 0.7);
+  animation: dot-blink 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* ── Main heading (editorial massive type) ── */
+.hero-heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 2.5rem;
+}
+
+/* Italic accent word */
+.hero-heading em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* Small salutation overline */
+.hero-salutation {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Bottom row (description + CTA side by side) ── */
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: var(--rule);
+}
+
+.hero-desc {
+  max-width: 460px;
+}
+
+.hero-desc p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--cream-dim);
+  margin-bottom: 1.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--r-sm);
+  border: none;
+  cursor: pointer;
+  transition: all var(--t-base);
+  text-decoration: none;
+}
+
+.hero-btn-primary:hover {
+  background: var(--gold-light);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--gold-glow);
+}
+
+.hero-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: transparent;
+  color: var(--cream-dim);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(242, 238, 231, 0.2);
+  cursor: pointer;
+  transition: all var(--t-base);
+  text-decoration: none;
+}
+
+.hero-btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+/* ── Socials (right column, stacked) ── */
+.hero-socials-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-end;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: 1px solid rgba(242, 238, 231, 0.13);
+  border-radius: var(--r-sm);
+  color: var(--stone-light);
+  font-size: 0.95rem;
+  transition: all var(--t-base);
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ── Stats row ── */
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: var(--rule);
+}
+
+.hero-stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.hero-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ── Hide old decorative elements ── */
+.overflow, .fade, .patterns, .loading-container { display: none; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .hero-container { padding-top: 88px; }
+
+  .hero-bottom {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-socials-col {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .social-icons {
+    flex-direction: row;
+  }
+
+  .hero-desc { max-width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .hero-container { padding: 80px 1.25rem 3rem; }
+
+  .hero-heading { font-size: clamp(3rem, 14vw, 5.5rem); }
+
+  .hero-actions {
+    flex-direction: column;
     width: 100%;
- 
-}
+  }
 
-.fade{
-    font-size: 10em;
-    text-wrap: nowrap;
-    color: var(---primary-400);
-    text-align: center;
-    margin-inline-end: 1em;
-
-}
-
-.hero-grid{
-    display: grid;
-    grid-template-columns: repeat(1, auto);
-}
-.heading{
-    color: var(---primary-300);
-    font-size: clamp(5.4em, 3.4em, 2.4em);
+  .hero-btn-primary,
+  .hero-btn-outline {
     width: 100%;
-    margin: auto;
-    padding-top: 50px;
-    font-style: normal;
-    font-weight: 700;
-    text-align: left;
-    line-height: 5.875rem; 
-    text-transform: capitalize;
-}
+    justify-content: center;
+  }
 
-.pry-contrast{
-color: var(---primary-100);
-}
+  .hero-stats { gap: 1.5rem; }
 
-.hero-content{
-color: var(---primary-100);
-font-size: 1.3em;
-padding: 1.5em 0;
-font-style: normal;
-font-weight: 400;
-text-align: left;
-line-height: 2rem;
-width: 50%;
-}
-
-.contrast{
-    font-weight: 700;
-}
-.down-btn{
-    border-radius: 50px;
-    position: absolute;
-    bottom: 25%;
-    right: 0;
-    padding: 1em;
-}
-.down-btn>img{
-    height: 50px;
-    height: 50px;
-    object-fit: contain;
-}
-.social-icons{
-    display: flex;
-    justify-content: left;
-    gap: .55em;
-
-    a{
-        i{
-            font-size: 2.5rem;
-        }
-    }
-}
-
-.patterns{
-
-    position: absolute;
-    bottom:100px;
-    left: 0px;
-    z-index: -100;
-    object-fit: contain;
-    width: 100%;
-
-}
-
-@media screen and (max-width:900px) {
-    .heading{
-        font-size: 4.2rem;
-        line-height: 4.875rem; 
-    }
-    
-    .pry-contrast{
-    color: var(---primary-100);
-    }
-    
-    .hero-content{
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-    }
-    
-    .down-btn{
-        bottom: 30%;
-    }
-    .down-btn>img{
-        height: 30px;
-    }
-    .social-icons{
-        width: 40px;
-
-        a{
-            i{
-                font-size: 1.7rem;
-            }
-        }
-    }
-
-}
-
-@media screen and (max-width:760px) {
-    .hero-content{
-    font-size: 1.2rem;
-    width: 75%;
-    }
-    .down-btn{
-        bottom: 20%;
-    }
-
-}
-
-@media screen and (max-width:608px) {
-
-    .heading{
-        color: var(---primary-300);
-        font-size: 3.2rem;
-        padding-top: 1.5em;
-        line-height: 3.875rem; 
-    }
-    
-    .hero-content{
-    font-size: 1rem;
-    line-height: 1.8rem;
-    width: 80%;
-    }
-    
-    .down-btn{
-        border-radius: 50px;
-        position: absolute;
-        bottom: 30%;
-        padding: 1em;
-    }
-    .down-btn>img{
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
-    }
-    .social-icons{
-        bottom: 30%;
-    }
-    .social-icons>img{
-        width: 30px;
-    }
-   
-}
-
-@media screen and (max-width:540px) {
-
-    .heading{
-        margin-top: 2.5em;
-        color: var(---primary-300);
-        font-size: 2.2rem;
-        line-height: 2.875rem; 
-      
-    }
-    
-    .hero-content{
-    font-size: 1rem;
-    line-height: 1.8rem;
-    width: 95%;
-   
-    }
-    
-    .down-btn{
-        border-radius: 50px;
-        position: absolute;
-        bottom: 20%;
-        padding: 1em;
-       
-    }
-    .down-btn>img{
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
-    }
-
-    .social-icons{
-        flex-direction: row;
-        width: 20px;
-        object-fit: contain;
-    }
-   
-    .social-icons>img{
-        width: 18px;
-    }
+  .hero-issue { flex-wrap: wrap; gap: 1rem; }
 }

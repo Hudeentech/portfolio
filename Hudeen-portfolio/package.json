@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "vite --host --port 5173",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -19,8 +19,7 @@
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.3",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.21.3",
-    "react-toastify": "^11.0.5"
+    "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

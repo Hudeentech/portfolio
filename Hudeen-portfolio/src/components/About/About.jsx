@@ -10,12 +10,10 @@ function About() {
 
 
   useEffect(() => {
-    
-   const query = '*[_type == "about"]';
-
-   client.fetch(query)
-      .then((data) => setAboutData(data));
-  
+    const query = '*[_type == "about"]';
+    client.fetch(query)
+      .then((data) => setAboutData(data || []))
+      .catch((err) => console.error('About fetch error:', err));
   }, [])
   
 
@@ -40,7 +38,9 @@ function About() {
 
           <div className='abt-img-container'>
             <div className="abt-img">
-              <img src={urlFor(data.imgUrl)} alt={data.name} />
+              {data.imgUrl && (
+                <img src={urlFor(data.imgUrl)?.url()} alt={data.name || 'About'} />
+              )}
             </div>
           </div>
           </>)

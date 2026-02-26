@@ -1,178 +1,160 @@
-.footer{
-    max-width: 1460px;
-    margin: auto;
-    padding: 2.5em 1em;
+/* ============================================
+   FOOTER — Editorial CTA + footer bar
+   ============================================ */
+.footer {
+  padding: var(--section-v) 2rem 2.5rem;
 }
-.contact-headlines{
-    background: url('../../assets/6227820.jpg' );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height:40dvh;
-    padding: 2.5em 1.5em ;
-    margin: 1em auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* ── CTA Banner ── */
+.contact-headlines {
+  position: relative;
+  padding: 5rem 3.5rem;
+  border: var(--rule);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  text-align: left;
+  margin-bottom: 3rem;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Dark overlay */
+.contact-headlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(14, 13, 11, 0.92) 50%,
+    rgba(14, 13, 11, 0.7) 100%
+  );
+}
+
+
+
+.contact-headlines > * {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.contact-tagline {
+  display: none;
+}
+
+/* Email button */
+.buzz {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 2rem !important;
+  background: var(--gold) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--r-sm) !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all var(--t-base) !important;
+}
+
+.buzz:hover {
+  background: var(--gold-light) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px var(--gold-glow) !important;
+  outline-offset: 0 !important;
+}
+
+/* ── Links row ── */
+.contact-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: var(--rule);
+  margin-bottom: 2rem;
+}
+
+.contact-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-links li { list-style: none; }
+.contact-links li::before { display: none; }
+
+.contact-links li a {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone-light);
+  border: 1px solid rgba(242, 238, 231, 0.1);
+  border-radius: var(--r-sm);
+  transition: all var(--t-fast);
+}
+
+.contact-links li a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── Bottom bar ── */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-copy,
+.footer-made-with {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--stone);
+}
+
+.footer-made-with span { color: var(--gold); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .footer { padding: 4rem 1.25rem 2rem; }
+  .contact-headlines { padding: 3rem 1.75rem; }
+  .contact-links {
     flex-direction: column;
-}
-.contact-headlines> h1{
-    text-align: center;
-    height: fit-content;
-    font-size: 2.8rem;
-    padding:.5em 0;
-    line-height: 1.3em;
-    width: 70%;
-    margin: auto;
- 
-}
-.contact-headlines> h4{
-    text-align: center;
-    height: fit-content;
-    width: 65%;
-    margin: 0 auto;
-    color: var(---primary-100);
-    font-weight: 600;
-}
-
-.contact-links{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em 0;
-    width: 90%;
-    margin: auto;
-
-}
-.contact-links ul{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
     align-items: flex-start;
-    gap: 1em;
-    width: 75%;
+  }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
-.contact-links li {
-    font-size: 1.5em;
-    margin:.1em;
-    font-weight: 600;
-    list-style-type: none;
-    transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
-}
-.contact-links li::before{
-    content: ' ';
-    padding: .3px .56em;
-    background:var(---primary-300);
-    margin: 0 .5em;
-    border-radius: 50px;
-}
-
-.contact-links li:hover{
-   scale: 1.2;
-   overflow: hidden;
-   transform: rotate(5deg);
-   color: var(---primary-300);
-}
-
-.contact-links >.buzz{
-    padding: 1em 2em;
-    flex: 1;
-    font-size: 1.5em;
-    font-weight: 600;
-    transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
-    background-color: gold !important;
-}
-
-.buzz:hover{
-   outline-offset: .5em;
-   transform: translatey(.5em);
-   background-color: white !important;
-   
-}
-
-
-
-@media screen and (max-width:868px) {
-    .contact-headlines> h1{
-        text-align: center;
-        line-height: 1.2em;
-        width: 85%;
-    }
-
- .contact-links > ul  li{
-    font-size: 1.3em;
- }
- .contact-links .buzz{
-    padding: 1em .54em;
- }
- .contact-links{
-    gap: .5em;
-
- }
-}   
-
-@media screen and (max-width:784px) {
-    .contact-headlines> h1{
-        text-align: center;
-        line-height: auto;
-        width: 100%;
-        font-size: 2.5em;
-        font-weight: 600;
-
-    
-    }
-    .contact-headlines> h4{
-        text-align: center;
-        width: 100%;
-  
-    }
-
-    .contact-links{
-        gap: 1.5em;
-        flex-direction: column-reverse;
-        
-     }
-     .contact-links> ul{
-        width: 100%;
-        justify-content: center;
-
-     }
-
-     .contact-links> .buzz{
-        width: 50%;
-     }
-}
-
-@media screen and (max-width:764px) {
-    .contact-headlines> h1{
-        text-align: center;
-        line-height: auto;
-        width: 100%;
-        font-size: 1.7em;
-        font-weight: 600;
-
-    
-    }
-    .contact-headlines> h4{
-        text-align: center;
-        width: 100%;
-  
-    }
-
-    .contact-links{
-        gap: 1.5em;
-        flex-direction: column-reverse;
-        
-     }
-     .contact-links> ul{
-        width: 100%;
-        justify-content: center;
-
-     }
-     .contact-links> .buzz{
-        width: 65%;
-     }
-}
-

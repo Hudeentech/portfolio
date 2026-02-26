@@ -1,84 +1,83 @@
 import { useEffect, useState } from 'react';
 import { urlFor, client } from "../../client.js";
-import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { motion } from 'framer-motion';
 import './Services.css';
-import img from '/src/assets/Mask group.png'
 
 function Services() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const query = '*[_type == "service"]';
-    client.fetch(query)
-      .then((data) => setData(data));
+    client.fetch('*[_type == "service"]')
+      .then((d) => setData(d || []))
+      .catch((err) => console.error('Services fetch error:', err));
   }, []);
 
-  // Variants for fade-in animation with transition effects
-  const fadeInVariants = {
-    hidden: { opacity: 0, y: 30 }, // Starts off below with opacity 0
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.8, 
-        ease: 'easeOut',
-        delay: 0.3,  // Delay to create the stagger effect
-      }
-    }
-  };
-
-  const containerVariants = {
-    hidden: {},
-    visible: { 
-      transition: { 
-        staggerChildren: 0.3, // Stagger the children with 0.3s delay
-        delayChildren: 0.5, // Delay before children start animating
-      }
-    }
+  const fadeUp = {
+    hidden: { opacity: 0, y: 28 },
+    visible: (i = 0) => ({
+      opacity: 1, y: 0,
+      transition: { duration: 0.65, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] },
+    }),
   };
 
   return (
-    <motion.div
-    id='services'
-      className='svc'
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants} // Apply container variants
-    >
-      <img src={img} alt="" className="patterns" />
-      <motion.h4> What I Do </motion.h4>
+    <section className="svc" id="services">
+      <div className="svc-inner">
 
-      <motion.div
-        className="svc-container"
-        variants={fadeInVariants} // Apply individual fadeIn effect
-        initial="hidden"
-        whileInView="visible"
-      >
-        <motion.h2>
-          Empowering Solutions, Discover What I Offer
-        </motion.h2>
-      </motion.div>
+        {/* Header */}
+        <div className="svc-header">
+          <div className="svc-header-left">
+            <motion.h4
+              initial={{ opacity: 0, x: -12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              What I Do
+            </motion.h4>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.08 }}
+              viewport={{ once: true }}
+            >
+              Empowering<br />Solutions
+            </motion.h2>
+          </div>
 
-      <motion.div
-        className="svc-card-container"
-        initial="hidden"
-        whileInView="visible"
-        variants={containerVariants} // Apply container animation for stagger effect
-      >
-        {data.map((data, index) => (
-          <motion.div
-            key={index}
-            className="svc-card"
-            variants={fadeInVariants} // Apply fadeIn effect to each card
-            transition={{ delay: 0.5 + index * 0.2 }} // Stagger each card
-          >
-            <motion.img src={urlFor(data.icon)} alt="" />
-            <motion.h4>{data.heading}</motion.h4>
-            <motion.p>{data.summary}</motion.p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
+          <div className="svc-header-right">
+            <p className="svc-intro-text">
+              From pixel-perfect interfaces to scalable full-stack builds —
+              I turn complex problems into elegant digital experiences.
+            </p>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div className="svc-card-container">
+          {data.map((item, index) => (
+            <motion.div
+              key={index}
+              className="svc-card"
+              custom={index}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <div className="svc-card-num">0{index + 1}</div>
+              {item.icon && (
+                <div className="svc-card-icon">
+                  <img src={urlFor(item.icon)?.url()} alt="" />
+                </div>
+              )}
+              <h4>{item.heading}</h4>
+              <p>{item.summary}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

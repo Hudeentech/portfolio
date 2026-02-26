@@ -1,14 +1,25 @@
-import sanityClient from '@sanity/client';
+import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
-export const client = sanityClient({
-    projectId:'w7mopn6h',
-    dataset: 'production',
-    apiVersion: '2022-02-01',
-    useCdn: true,
-    token: import.meta.env.REACT_APP_SANITY_TOKEN,
-  });
-  
-  const builder = imageUrlBuilder(client);
+export const client = createClient({
+  projectId: 'w7mopn6h',
+  dataset: 'production',
+  apiVersion: '2024-01-01',
+  useCdn: true,           // public read — no token needed for published content
+  perspective: 'published',
+});
 
-  export const urlFor = (source) => builder.image(source);
+const builder = imageUrlBuilder(client);
+
+/**
+ * Safe urlFor — returns null if source is falsy, avoiding crashes
+ * on empty Sanity fields.
+ */
+export const urlFor = (source) => {
+  if (!source) return null;
+  try {
+    return builder.image(source);
+  } catch {
+    return null;
+  }
+};

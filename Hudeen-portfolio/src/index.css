@@ -1,93 +1,229 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
+/* ============================================
+   DESIGN TOKENS — Editorial Magazine Palette
+   ============================================ */
 :root {
-  font-family: 'Poppins', sans-serif; ;
-  line-height: 1.5;
+  /* === PALETTE === */
+  --ink:          #0E0D0B;          /* near-black warm ink */
+  --ink-soft:     #1C1A17;          /* card / surface backgrounds */
+  --ink-muted:    #2C2A26;          /* borders, dividers */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #111;
+  --cream:        #F2EEE7;          /* warm off-white / text on dark */
+  --cream-dim:    rgba(242, 238, 231, 0.58);
+  --cream-ghost:  rgba(242, 238, 231, 0.28);
 
-  ---primary-400:#222;
-  ---primary-300:gold;
-  ---primary-200:#c5c5c5;
-  ---primary-100:#f2f2f2;
+  --gold:         #C9A84C;          /* primary accent */
+  --gold-light:   #E2C070;          /* gold on hover */
+  --gold-dim:     rgba(201, 168, 76, 0.15);
+  --gold-glow:    rgba(201, 168, 76, 0.25);
 
-  
+  --stone:        #7B7568;          /* secondary muted text */
+  --stone-light:  #A39B8E;
+
+  /* === TYPOGRAPHY === */
+  --font-display: 'DM Serif Display', serif;   /* editorial headlines */
+  --font-body:    'DM Sans', sans-serif;        /* body / UI */
+  --font-mono:    'Space Mono', monospace;      /* labels / tags */
+
+  /* === SPACING === */
+  --nav-height:   72px;
+  --max-w:        1100px;
+  --section-v:    6rem;
+
+  /* === BORDERS === */
+  --rule:         1px solid rgba(242, 238, 231, 0.12);
+  --rule-gold:    1px solid rgba(201, 168, 76, 0.35);
+
+  /* === RADIUS === */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  /* === TRANSITIONS === */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 0.18s ease;
+  --t-base: 0.32s ease;
+  --t-slow: 0.6s var(--ease-out-expo);
 }
-*::-webkit-scrollbar {
-  width: 7px;
-}
 
-*::-webkit-scrollbar-thumb {
-  background-color: gold;
-  border-radius: 3px;
-}
-
-*::-webkit-scrollbar-track {
-  background-color: #222;
-}
-*{
+/* ============================================
+   RESET
+   ============================================ */
+*, *::before, *::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.filter-btn.active {
-  background-color:gold; /* Highlight active button */
-  color:var(---primary-400);
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ink-soft); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;              /* DM Serif Display is powerful at 400 */
+  color: var(--cream);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(3rem, 7vw, 6.5rem); }
+h2 { font-size: clamp(2rem, 4.5vw, 3.75rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); }
+
+/* Editorial label / overline */
+h4 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+h4::before {
+  content: '';
+  flex-shrink: 0;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+}
+
+p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--cream-dim);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 0;
 }
 
 a {
-  font-weight: 500;
-  color:white;
-  text-decoration: inherit;
-}
-a:hover {
-  color:gold;
+  color: var(--cream);
+  text-decoration: none;
+  transition: color var(--t-fast);
 }
 
+a:hover { color: var(--gold-light); }
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: var(--gold-dim);
+  color: var(--cream);
+}
+
+/* ============================================
+   LAYOUT WRAPPER
+   ============================================ */
+.Home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--ink);
+}
+
+/* Each section gets a full-width ruled top line */
+.Home > section {
+  border-top: var(--rule);
+}
+
+/* ============================================
+   BUTTON SYSTEM
+   ============================================ */
 button {
-  border-radius: 50px;
-  border: 1px solid transparent;
-  padding: .5em 1.5em;
-  font-size: 1em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
   font-weight: 500;
-  font-family: inherit;
-  background-color: gold;
-  color: #222;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
+  border: none;
+  transition: all var(--t-base);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
-h4{
-  color: gold;
+/* Gold filled */
+.btn-gold {
+  padding: 0.75rem 2rem;
+  background: var(--gold);
+  color: var(--ink);
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
 }
 
-button:hover {
-  border-color: rgb(255, 255, 255);
-  color: #222;
-
-  outline-offset: .5em;
-  background-color: white;
-}
-button:focus,
-button:focus-visible {
-  background-color: white;
+.btn-gold:hover {
+  background: var(--gold-light);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--gold-glow);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: white;
-    background-color: #111;
-  }
-  a:hover {
-    color: gold;
-  }
-  button {
-    background-color:gold;
-  }
+/* Ghost outlined */
+.btn-ghost {
+  padding: 0.75rem 2rem;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(242, 238, 231, 0.25);
+  border-radius: var(--r-sm);
+  text-decoration: none;
 }
 
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: translateY(-2px);
+}
 
+/* ============================================
+   SHARED CARD SURFACE
+   ============================================ */
+.card-surface {
+  background: var(--ink-soft);
+  border: var(--rule);
+  border-radius: var(--r-lg);
+}
 
+/* ============================================
+   PROJECT FILTER ACTIVE (global override)
+   ============================================ */
+.filter-btn.active {
+  background: var(--gold) !important;
+  color: var(--ink) !important;
+  border-color: transparent !important;
+}

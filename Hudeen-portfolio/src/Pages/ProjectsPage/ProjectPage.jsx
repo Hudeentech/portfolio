@@ -9,7 +9,8 @@ import { PortableText } from "@portabletext/react";
 function ProjectPage() {
   const [projectData, setProjectData] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null); // Track selected project for modal
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchProjects = async () => {
     try {
@@ -29,94 +30,125 @@ function ProjectPage() {
           overview
         }
       `);
-      setProjectData(data);
+      setProjectData(data || []);
     } catch (error) {
       console.error("Error fetching project data:", error);
+      setProjectData([]);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleClick = (tag) => {
-    setSelectedTag(tag); // Update selected tag
-  };
+  useEffect(() => { fetchProjects(); }, []);
 
-  const openModal = (project) => {
-    setSelectedProject(project);
-  };
-
-  const closeModal = () => {
-    setSelectedProject(null);
-  };
-
+  /* Prevent body scroll when modal is open */
   useEffect(() => {
-    fetchProjects();
-  }, []);
+    document.body.style.overflow = selectedProject ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [selectedProject]);
+
+  const tags = [
+    { key: null,  label: "All Projects" },
+    { key: "web", label: "Web Dev" },
+    { key: "ui",  label: "UI/UX" },
+  ];
+
+  const filtered = selectedTag
+    ? projectData.filter((d) => d?.tag === selectedTag)
+    : projectData;
 
   return (
     <div className="prj-page-container">
       <Nav />
+
+      {/* Header  */}
       <div className="prj-page-title">
-        <h2>My Projects</h2>
+        <div className="prj-page-title-left">
+          <h4>Portfolio</h4>
+          <h2>My Projects</h2>
+        </div>
 
         <div className="toggel-btn">
-          {["All", "web", "ui"].map((tag, index) => (
+          {tags.map(({ key, label }) => (
             <motion.button
-              key={tag}
-              className={`filter-btn ${
-                selectedTag === null && tag === "All" ? "active" : ""
-              } ${selectedTag === tag ? "active" : ""}`}
-              onClick={() => handleClick(tag === "All" ? null : tag)}
-              whileHover={{ scale: 1.1 }}
+              key={label}
+              className={`filter-btn ${selectedTag === key ? "active" : ""}`}
+              onClick={() => setSelectedTag(key)}
+              whileTap={{ scale: 0.96 }}
             >
-              {tag === "All" ? "All Projects" : tag === "web" ? "Web Design" : "UI/UX"}
+              {label}
             </motion.button>
           ))}
         </div>
       </div>
 
-      <motion.div
-        className="prj-page-grid"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.2,
-            },
-          },
-        }}
-      >
-        {projectData
-          .filter((data) => !selectedTag || data.tag === selectedTag)
-          .map((data) => (
+      {/* Loading state */}
+      {loading && (
+        <div className="prj-page-loading">
+          <div className="prj-loading-dot" />
+          <span>Loading projects…</span>
+        </div>
+      )}
+
+      {/* Grid */}
+      {!loading && (
+        <motion.div
+          className="prj-page-grid"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+          }}
+        >
+          {filtered.length === 0 && (
+            <p className="prj-page-empty">No projects found in this category yet.</p>
+          )}
+
+          {filtered.map((data) => (
             <motion.div
               key={data._id}
               className="prj-card"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              onClick={() => openModal(data)} // Open modal with project details
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setSelectedProject(data)}
             >
-              <div className="prj-main-c">
-                <h3 className="name">{data.projectName}</h3>
-              </div>
+              {/* Image */}
+              {data.imageUrl && (
+                <div className="prj-img-container">
+                  <img
+                    src={urlFor(data.imageUrl)?.url()}
+                    alt={data.projectName || "Project"}
+                    className="prj-p-img"
+                  />
+                </div>
+              )}
 
-              <div className="prj-main-desc">
-                <p>{data.desc}</p>
-              </div>
+              {/* Text */}
+              <div className="prj-card-body">
+                <div className="prj-main-c">
+                  <h3>{data.projectName || "Untitled Project"}</h3>
+                  {data.tag && (
+                    <span className="prj-page-tag">
+                      {data.tag === 'web' ? 'Web Dev' : 'UI/UX'}
+                    </span>
+                  )}
+                </div>
 
-              <div className="prj-img-container">
-                <img
-                  src={urlFor(data.imageUrl)}
-                  alt={data.projectName}
-                  className="prj-p-img"
-                />
+                <div className="prj-main-desc">
+                  <p>{data.desc || ""}</p>
+                </div>
+
+                <div className="prj-hint">
+                  <i className="fa-solid fa-arrow-up-right-from-square" />
+                  View details
+                </div>
               </div>
             </motion.div>
           ))}
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Modal */}
       <AnimatePresence>
@@ -126,56 +158,78 @@ function ProjectPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={closeModal}
           >
             <motion.div
               className="p-modal-content"
-              initial={{ y: "-50%", opacity: 0 }}
-              animate={{ y: "0%", opacity: 1 }}
-              exit={{ y: "-50%", opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ y: 40, opacity: 0, scale: 0.97 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <button className="p-close-modal-btn" onClick={closeModal}>
-                <i className="fas fa-close"></i>
+              <button className="p-close-modal-btn" onClick={closeModal} aria-label="Close">
+                <i className="fa-solid fa-times" />
               </button>
 
-              <h2>{selectedProject.projectName}</h2>
-              <p>{selectedProject.desc}</p>
+              <h2>{selectedProject.projectName || "Project"}</h2>
+              {selectedProject.desc && <p>{selectedProject.desc}</p>}
 
-              <img
-                src={urlFor(selectedProject.case)}
-                alt={selectedProject.projectName}
-                className="p-modal-img"
-                />
-
-              <PortableText listNestingMode="" value={selectedProject.overview} />
-
+              {/* Case image 1 — only if field exists */}
+              {selectedProject.case && (
                 <img
-                src={urlFor(selectedProject.case2)}
-                alt={selectedProject.projectName}
-                className="p-modal-img"
+                  src={urlFor(selectedProject.case)?.url()}
+                  alt="Case study"
+                  className="p-modal-img"
                 />
-                <PortableText value={selectedProject.conclusion} />
-              {selectedProject.tag === "ui" ? (
-                <a
-                  href={selectedProject.behance}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-btn"
-                >
-                 <i className="fas fa-eye"></i> Visit Behance
-                </a>
-              ) : (
-                <>
+              )}
+
+              {/* Overview portable text */}
+              {selectedProject.overview && (
+                <div className="p-modal-text">
                   <PortableText value={selectedProject.overview} />
+                </div>
+              )}
+
+              {/* Case image 2 — only if field exists */}
+              {selectedProject.case2 && (
+                <img
+                  src={urlFor(selectedProject.case2)?.url()}
+                  alt="Case study 2"
+                  className="p-modal-img"
+                />
+              )}
+
+              {/* Conclusion — only if field exists */}
+              {selectedProject.conclusion && (
+                <div className="p-modal-text">
+                  <PortableText value={selectedProject.conclusion} />
+                </div>
+              )}
+
+              {/* CTA Link */}
+              {selectedProject.tag === "ui" ? (
+                selectedProject.behance && (
+                  <a
+                    href={selectedProject.behance}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-btn"
+                  >
+                    <i className="fa-brands fa-behance" /> Visit Behance
+                  </a>
+                )
+              ) : (
+                selectedProject.demoLink && (
                   <a
                     href={selectedProject.demoLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-btn"
                   >
-                   <i className="fas fa-globe"></i> View Live Demo
+                    <i className="fa-solid fa-globe" /> View Live Demo
                   </a>
-                </>
+                )
               )}
             </motion.div>
           </motion.div>
@@ -185,6 +239,8 @@ function ProjectPage() {
       <Footer />
     </div>
   );
+
+  function closeModal() { setSelectedProject(null); }
 }
 
 export default ProjectPage;
