@@ -104,7 +104,6 @@ function Nav() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <img src={img} alt="Logo" className="logo" />
-          <span className="logo-text">Hudeen</span>
         </motion.div>
 
         {/* Desktop Links */}

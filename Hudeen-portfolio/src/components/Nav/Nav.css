@@ -41,11 +41,9 @@
 }
 
 .logo {
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1.5px solid rgba(201, 168, 76, 0.45);
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
   transition: border-color var(--t-base);
 }
 
