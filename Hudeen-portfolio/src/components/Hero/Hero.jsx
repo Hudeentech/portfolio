@@ -40,7 +40,6 @@ function Hero() {
           <span className="hero-issue-dot" />
           <span>Portfolio — {today}</span>
           <span>Web Dev &amp; UI Design</span>
-          <span style={{ marginLeft: 'auto' }}>Est. 2021</span>
         </motion.div>
 
         {/* ── Heading ── */}

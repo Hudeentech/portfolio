@@ -55,7 +55,7 @@ function Exp() {
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
           >
             <h4>Experience</h4>
             <h2 className="exp-heading">
@@ -73,7 +73,7 @@ function Exp() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
         >
           {yrData.map((yearData, index) => (
             <motion.div
