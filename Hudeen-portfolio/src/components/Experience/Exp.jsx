@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { urlFor, client } from "../../client.js";
-import { motion } from "framer-motion";
 import "./Exp.css";
 
 function Exp() {
@@ -31,31 +30,17 @@ function Exp() {
       .catch((error) => console.error('Exp fetch error:', error));
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-  };
-
   return (
     <section className="exp">
       <div className="exp-inner">
         {/* Banner header */}
         {wData.map((data, index) => (
-          <motion.div
+          <div
             key={index}
             className="exp-heading-container"
             style={{
               backgroundImage: data.wallpaper ? `url(${urlFor(data.wallpaper)?.url()})` : 'none',
             }}
-            variants={itemVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
           >
             <h4>Experience</h4>
             <h2 className="exp-heading">
@@ -64,22 +49,17 @@ function Exp() {
               <span className="abt-contrast">{data.contrast2}</span>{" "}
               <span className="abt-contrast">{data.contrast3}</span>
             </h2>
-          </motion.div>
+          </div>
         ))}
 
         {/* Timeline */}
-        <motion.div
+        <div
           className="experience-content"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1, margin: "0px 0px -50px 0px" }}
         >
           {yrData.map((yearData, index) => (
-            <motion.div
+            <div
               key={index}
               className="exp-component"
-              variants={itemVariants}
             >
               <h3 className="year">{yearData.year}</h3>
               <div className="experience">
@@ -89,20 +69,18 @@ function Exp() {
                       try { src = urlFor(skill)?.url(); } catch { return null; }
                       if (!src) return null;
                       return (
-                        <motion.img
+                        <img
                           key={idx}
                           src={src}
                           alt={`Skill ${idx}`}
-                          whileHover={{ scale: 1.15, y: -4 }}
-                          transition={{ duration: 0.25 }}
                         />
                       );
                     })}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

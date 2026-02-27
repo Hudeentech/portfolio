@@ -28,7 +28,7 @@ function Projects() {
   ];
 
   const filtered = selectedTag
-    ? projectData.filter((d) => d?.tag === selectedTag)
+    ? projectData.filter((d) => d?.tag?.trim().toLowerCase() === selectedTag)
     : projectData;
 
   const fadeUp = {
@@ -93,6 +93,7 @@ function Projects() {
 
         {/* ── Project grid ── */}
         <motion.div
+          key={selectedTag || 'all'}
           className="prj-grid"
           initial="hidden"
           whileInView="visible"
