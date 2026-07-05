@@ -23,8 +23,8 @@
   border-radius: 999px;
   padding: 0 1.5rem;
   height: 64px; /* Slightly slimmer */
-  width: 80%;
-  max-width: var(--container-width);
+  width: 100%;
+  max-width: 900px; /* Fixed max-width prevents jumping on scrollbar/refresh */
   margin: 0 auto;
   pointer-events: auto;
   transition: all 0.3s ease;
