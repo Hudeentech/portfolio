@@ -9,6 +9,8 @@
   z-index: 1000;
   pointer-events: none;
   padding: 0 1.5rem; /* Space on sides for floating effect */
+  transform: translateZ(0); /* Fixes webkit backdrop-filter scrolling glitch */
+  -webkit-transform: translateZ(0);
 }
 
 .nav-container {
