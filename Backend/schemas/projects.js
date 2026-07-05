@@ -59,7 +59,12 @@ export default {
           hotspot:true,
         }
         },
-
+        {
+          name: 'caseStudyImages',
+          title: 'Case Study Images (Unlimited)',
+          type: 'array',
+          of: [{ type: 'image', options: { hotspot: true } }]
+        }
     ]
   
   }

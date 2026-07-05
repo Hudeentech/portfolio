@@ -1,162 +1,137 @@
 /* ============================================
-   SERVICES — Editorial grid
+   SERVICES — Card Grid
    ============================================ */
-.svc {
-  position: relative;
-  padding: var(--section-v) 2rem;
+.services-flow {
+  background: var(--bg-primary);
+  padding: var(--section-padding) 0;
 }
 
-.svc-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-}
-
-/* ── Section header row ── */
-.svc-header {
+.services-card-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
-  margin-bottom: 4rem;
-  padding-bottom: 2rem;
-  border-bottom: var(--rule);
+  margin-top: 4rem;
 }
 
-.svc-header-left h4 { margin-bottom: 1rem; }
-
-.svc-header-left h2 {
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  line-height: 1.0;
-}
-
-.svc-header-right {
+.service-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 3rem 2.5rem;
+  border-radius: 48px; /* Very curved */
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 1rem;
-}
-
-.svc-intro-text {
-  font-size: 0.95rem;
-  color: var(--cream-dim);
-  line-height: 1.75;
-  max-width: 380px;
-  margin-left: auto;
-}
-
-/* ── Card grid ── */
-.svc-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 0;
-  border: var(--rule);
-}
-
-/* ── Individual card ── */
-.svc-card {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
   position: relative;
-  padding: 2.5rem 2rem;
-  border-right: var(--rule);
-  border-bottom: var(--rule);
-  transition: background var(--t-base);
   overflow: hidden;
-  cursor: default;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-/* Remove double borders on last column */
-.svc-card:nth-child(3n) { border-right: none; }
+.service-card:hover {
+  transform: translateY(-12px) scale(1.02) rotate(-1deg); /* Playful bounce and tilt */
+  border-color: var(--brand-accent);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
 
-.svc-card::before {
+/* Playful floating accent dot on hover */
+.service-card::after {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 3px;
-  height: 0;
-  background: var(--gold);
-  transition: height var(--t-slow);
-}
-
-.svc-card:hover::before { height: 100%; }
-.svc-card:hover { background: rgba(201, 168, 76, 0.04); }
-
-/* Icon wrapper */
-.svc-card-icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(201, 168, 76, 0.25);
-  border-radius: var(--r-sm);
-  margin-bottom: 1.5rem;
-  transition: all var(--t-base);
-  background: var(--gold-dim);
-}
-
-.svc-card:hover .svc-card-icon {
-  border-color: var(--gold);
-  background: rgba(201, 168, 76, 0.15);
-}
-
-.svc-card-icon img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(75%) sepia(48%) saturate(500%) hue-rotate(5deg) brightness(95%) contrast(90%);
-}
-
-/* Number */
-.svc-card-num {
-  position: absolute;
   top: 2rem;
-  right: 1.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--stone);
+  right: 2.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand-accent);
+  transform: scale(0);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Card text */
-.svc-card > h4 {
-  font-family: var(--font-body) !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  color: var(--cream) !important;
-  letter-spacing: 0 !important;
-  text-transform: none !important;
-  margin-bottom: 0.6rem;
-  display: block !important;
+.service-card:hover::after {
+  transform: scale(1);
 }
 
-.svc-card > h4::before { display: none !important; }
-
-.svc-card > p {
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: var(--cream-dim);
-  margin: 0;
+/* Subtle glow effect on hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--brand-accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Hide old decoration */
-.svc > .patterns { display: none; }
+.service-card:hover::before {
+  transform: scaleX(1);
+}
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 900px) {
-  .svc-header {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+.service-number {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  opacity: 0.05;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.service-card:hover .service-number {
+  opacity: 0.1;
+  transform: translateY(-5px);
+}
+
+.service-content h3 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.service-content p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  flex-grow: 1;
+  letter-spacing: -0.01em;
+}
+
+.service-capsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.service-capsule {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid transparent;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  letter-spacing: -0.01em;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-capsule {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Layout */
+@media (max-width: 640px) {
+  .service-card {
+    padding: 2rem 1.5rem;
+    border-radius: 32px;
   }
-  .svc-intro-text { margin-left: 0; }
-  .svc-card-container { grid-template-columns: 1fr 1fr; }
-  .svc-card:nth-child(3n) { border-right: var(--rule); }
-  .svc-card:nth-child(2n) { border-right: none; }
-}
-
-@media (max-width: 560px) {
-  .svc { padding: 4rem 1.25rem; }
-  .svc-card-container { grid-template-columns: 1fr; }
-  .svc-card { border-right: none; }
-  .svc-card:nth-child(2n) { border-right: none; }
 }

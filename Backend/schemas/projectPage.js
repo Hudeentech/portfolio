@@ -62,6 +62,12 @@ export default {
       },
     },
     {
+      name: 'caseStudyImages',
+      title: 'Case Study Images (Unlimited)',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }]
+    },
+    {
       name: 'conclusion',
       title: 'conclusion',
       type: 'array',

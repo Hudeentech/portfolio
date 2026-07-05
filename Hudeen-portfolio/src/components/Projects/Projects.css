@@ -1,377 +1,158 @@
 /* ============================================
-   PROJECTS — Editorial list / grid (home section)
+   PROJECTS — Apple Minimalist Cards
    ============================================ */
-.prj-c {
-  padding: var(--section-v) 2rem;
-  position: relative;
+.projects-flow {
+  background: var(--bg-primary);
 }
 
-.prj-inner {
-  max-width: var(--max-w);
+.flow-header {
+  margin-bottom: var(--gap-md);
+  text-align: center;
+}
+
+.flow-header h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.flow-sub {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 1rem auto 0;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* Tighter gap */
+  padding: var(--gap-md) 0;
+  max-width: var(--container-width);
   margin: 0 auto;
 }
 
-/* ── Section Header ── */
-.prj-header {
+/* Base Card */
+.project-showcase-card {
+  width: 100%;
+  border-radius: 32px; /* Large Apple-like radius */
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  color: #FFFFFF; /* Kept white because cards have dark/colored bgs */
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-showcase-card:hover {
+  transform: scale(0.98);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Left Side (Text) */
+.card-left {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 0;
-  padding-bottom: 1.5rem;
-  border-bottom: var(--rule);
-  flex-wrap: wrap;
+  gap: 3rem;
 }
 
-.prj-header-left h4 { margin-bottom: 0.6rem; }
-
-.prj-header-left h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.0;
-}
-
-/* "View all" link in the header */
-.prj-view-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--stone-light);
-  padding-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(242, 238, 231, 0.2);
-  transition: color var(--t-fast), border-color var(--t-fast);
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.prj-view-all:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
-
-/* ── Filter tabs ── */
-.toggel-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  padding: 1.25rem 0;
-  border-bottom: var(--rule);
-  margin-bottom: 0;
-}
-
-.filter-btn {
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--r-sm);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: transparent;
-  border: 1px solid rgba(242, 238, 231, 0.15);
-  color: var(--stone-light);
-  cursor: pointer;
-  transition: all var(--t-base);
-}
-
-.filter-btn:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-.filter-btn.active {
-  background: var(--gold) !important;
-  color: var(--ink) !important;
-  border-color: transparent !important;
-  font-weight: 600 !important;
-}
-
-/* ============================================
-   PROJECT GRID — Spaced Editorial Cards
-   ============================================ */
-.prj-grid {
-  margin-top: 2.5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-/* ── Each card ── */
-.prj-b {
-  background: var(--ink-soft);
-  border: var(--rule);
-  border-radius: var(--r-lg);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: all var(--t-base);
-}
-
-.prj-b:hover {
-  border-color: rgba(201, 168, 76, 0.3);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-  transform: translateY(-4px);
-}
-
-/* ── Card image ── */
-.img-container {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: var(--ink-muted);
-}
-
-.prj-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.7s var(--ease-out-expo), filter var(--t-base);
-  filter: grayscale(30%);
-}
-
-.prj-b:hover .prj-img {
-  transform: scale(1.06);
-  filter: grayscale(0%);
-}
-
-/* ── Card content ── */
-.prj-content-container {
-  padding: 1.5rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  border-top: var(--rule);
-}
-
-/* Flex row for title and tag */
-.prj-main-c {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.prj-main-c h3 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.35rem;
-  color: var(--cream);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin-bottom: 0;
-}
-
-.prj-content-container > p {
-  font-size: 0.875rem;
-  color: var(--cream-dim);
-  line-height: 1.65;
-  margin: 0 0 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Tag chip */
-.prj-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem 0.6rem;
-  background: var(--gold-dim);
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  border-radius: var(--r-sm);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold);
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-/* Explore row — fixed at card bottom */
-.prj-hint {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--stone);
-  transition: color var(--t-fast);
-}
-
-.prj-hint i { font-size: 0.6rem; }
-
-.prj-b:hover .prj-hint {
-  color: var(--gold);
-}
-
-.prj-index { display: none; }
-
-
-/* ============================================
-   MODAL
-   ============================================ */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  padding: 1rem;
-}
-
-.modal-content {
-  background: var(--ink-soft);
-  border: var(--rule);
-  border-radius: var(--r-xl);
-  max-width: 760px;
-  width: 100%;
-  max-height: 90dvh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.75);
-  scroll-behavior: smooth;
-}
-
-.modal-content::-webkit-scrollbar { width: 4px; }
-.modal-content::-webkit-scrollbar-track { background: transparent; }
-.modal-content::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
-
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ink);
-  border: var(--rule);
-  border-radius: var(--r-sm);
-  color: var(--cream-dim);
-  font-size: 0.85rem;
-  cursor: pointer;
-  z-index: 10;
-  padding: 0 !important;
-  min-width: unset !important;
-  transition: all var(--t-fast);
-}
-
-.modal-close:hover { border-color: #E5534B; color: #E5534B; }
-
-.modal-image {
-  width: 100%;
-  max-height: 380px;
-  object-fit: cover;
-  border-radius: var(--r-xl) var(--r-xl) 0 0;
-  display: block;
-}
-
-.modal-text-container {
-  padding: 2rem 2.25rem;
-}
-
-.modal-text-container h1 {
-  font-family: var(--font-display);
-  font-size: 1.85rem;
-  color: var(--cream);
-  padding: 0;
-  margin-bottom: 0.75rem;
-}
-
-.modal-text-container h2 {
-  font-size: 1.1rem;
-  color: var(--gold);
-  margin: 1.25rem 0 0.4rem;
-  font-family: var(--font-display);
-  font-weight: 400;
-}
-
-.modal-text-container p {
-  font-size: 0.9rem;
-  color: var(--cream-dim);
-  display: block;
-}
-
-.modal-text-container ul {
-  padding-left: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.modal-text-container ul li { color: var(--cream-dim); font-size: 0.875rem; }
-.modal-text-container strong { color: var(--cream); font-weight: 600; }
-.modal-text-container a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
-
-.modal-links {
-  padding: 0.5rem 2.25rem 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.demo-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1.75rem;
-  background: var(--gold);
-  color: var(--ink) !important;
-  border-radius: var(--r-sm);
-  font-family: var(--font-body);
+.card-left-top h3 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all var(--t-base);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
 }
 
-.demo-link:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--gold-glow);
+.card-tag {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: none; /* Apple doesn't use uppercase tags usually */
+  letter-spacing: -0.01em;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 960px) {
-  .prj-grid {
-    grid-template-columns: repeat(2, 1fr);
+.card-summary {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  max-width: 95%;
+  letter-spacing: -0.01em;
+}
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: opacity var(--t-fast);
+}
+
+.project-showcase-card:hover .card-cta {
+  opacity: 0.7;
+}
+
+/* Right Side (Image) */
+.card-right {
+  padding: 0 2rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+}
+
+/* Tablet & Desktop Layout */
+@media (min-width: 900px) {
+  .project-showcase-card {
+    flex-direction: row;
+    min-height: 600px;
+  }
+
+  .card-left {
+    flex: 0 0 45%;
+    padding: 4rem;
+  }
+
+  .card-right {
+    flex: 1;
+    padding: 4rem;
   }
 }
 
+/* Mobile Layout */
 @media (max-width: 640px) {
-  .prj-c { padding: 4rem 1.25rem; }
-
-  .prj-grid {
-    grid-template-columns: 1fr;
+  .card-left {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
   }
 
-  .prj-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-
-  .modal-content { border-radius: var(--r-lg); max-height: 95dvh; }
-  .modal-text-container { padding: 1.25rem; }
-  .modal-links { padding: 0 1.25rem 1.5rem; }
+  .card-right {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
 }

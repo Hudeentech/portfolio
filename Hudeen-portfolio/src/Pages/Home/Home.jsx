@@ -1,20 +1,19 @@
-
-
-import {Nav, Exp, Services, Projects, Hero, Maqrue, Testimonial, Footer } from '../..'
-
+import { Nav, Hero, Philosophy, Projects, Services, Process, Testimonial, Exp, About, Footer } from '../..'
 
 function Home() {
   return (
     <div className='Home'>
         <Nav/>
         <Hero/>
-        <Services/>
-        <Exp/>
+        <Philosophy/>
         <Projects/>
+        <Services/>
+        <Process/>
         <Testimonial/>
+        <Exp/>
+        <About/>
         <Footer/>
     </div>
-    
   )
 }
 

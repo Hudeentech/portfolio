@@ -1,0 +1,53 @@
+/* ============================================
+   PROCESS
+   ============================================ */
+.process-flow {
+  background: var(--bg-primary);
+  padding: var(--section-v) 0;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.process-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  background: rgba(128, 128, 128, 0.02);
+  border: 1px solid rgba(128, 128, 128, 0.05);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.process-card:hover {
+  transform: translateY(-5px);
+  background: rgba(128, 128, 128, 0.04);
+}
+
+.process-num {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--brand-gold);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.process-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.process-card p {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

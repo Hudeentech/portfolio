@@ -1,108 +1,64 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { client } from "../../client.js";
 import "../Hero/Hero.css";
+import profileImg from "/src/assets/20231229_212800-removebg-preview.png";
 
 function Hero() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const query = '*[_type == "hero"]';
-    client.fetch(query)
-      .then((d) => setData(d || []))
-      .catch((err) => console.error('Hero fetch error:', err));
-  }, []);
-
-  const fade = {
-    hidden: { opacity: 0, y: 24 },
-    visible: (i = 0) => ({
-      opacity: 1,
+  const textVariants = {
+    hidden: { y: "150%", opacity: 0, filter: 'blur(10px)' },
+    visible: (i) => ({
       y: 0,
-      transition: { duration: 0.75, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] },
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1],
+        delay: i * 0.15,
+      },
     }),
   };
 
-  // Don't crash — just render nothing while loading or if CMS is empty
-  if (data.length === 0) return null;
-
-  const item = data[0];
-  const today = new Date().toLocaleDateString("en-GB", {
-    day: "2-digit", month: "short", year: "numeric",
-  });
+  const fadeVariants = {
+    hidden: { opacity: 0, filter: 'blur(10px)' },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: { duration: 1.5, ease: "easeOut", delay: 0.8 },
+    },
+  };
 
   return (
-    <section className="hero-wrapper">
-      <div className="hero-bg" />
-
-      <div className="hero-container">
-        {/* ── Issue line ── */}
-        <motion.div className="hero-issue" custom={0} variants={fade} initial="hidden" animate="visible">
-          <span className="hero-issue-dot" />
-          <span>Portfolio — {today}</span>
-          <span>Web Dev &amp; UI Design</span>
-        </motion.div>
-
-        {/* ── Heading ── */}
-        <motion.div custom={1} variants={fade} initial="hidden" animate="visible">
-          <span className="hero-salutation">{item.headingSalutation}</span>
-          <h1 className="hero-heading">
-            {(item.name || '').split(' ')[0]}&nbsp;
-            <em>{(item.name || '').split(' ').slice(1).join(' ')}</em>
-          </h1>
-        </motion.div>
-
-        {/* ── Bottom editorial row ── */}
-        <motion.div className="hero-bottom" custom={2} variants={fade} initial="hidden" animate="visible">
-          {/* Left: description + CTAs */}
-          <div className="hero-desc">
-            <p>{item.summary}</p>
-            <div className="hero-actions">
-              <a href="#projects" className="hero-btn-primary">
-                View Work
-                <i className="fa-solid fa-arrow-right" style={{ fontSize: '0.8rem' }} />
-              </a>
-              <a href="#contact" className="hero-btn-outline">
-                Get in Touch
-              </a>
-            </div>
-
-            {/* Stats inline */}
-            <div className="hero-stats">
-              <div className="hero-stat">
-                <div className="hero-stat-number">3+</div>
-                <div className="hero-stat-label">Years</div>
-              </div>
-              <div className="hero-stat">
-                <div className="hero-stat-number">20+</div>
-                <div className="hero-stat-label">Projects</div>
-              </div>
-              <div className="hero-stat">
-                <div className="hero-stat-number">∞</div>
-                <div className="hero-stat-label">Coffee</div>
-              </div>
-            </div>
+    <section className="hero">
+      <div className="container hero-container">
+        <div className="hero-content">
+          
+          <div className="hero-title">
+            <h1>
+              <span className="line">
+                <motion.span custom={0} variants={textVariants} initial="hidden" animate="visible">
+                  Designing products and brands people remember.
+                </motion.span>
+              </span>
+            </h1>
+            <motion.p 
+              className="hero-subheadline"
+              variants={fadeVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              I help startups, businesses, and founders create digital products, brands, and experiences that attract customers, build trust, and drive growth.
+            </motion.p>
+            <motion.div 
+              className="hero-ctas"
+              variants={fadeVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <a href="#projects" className="btn-primary">View My Work</a>
+              <a href="mailto:hello@example.com" className="btn-secondary">Book a Discovery Call</a>
+            </motion.div>
           </div>
-
-          {/* Right: social icons column */}
-          <div className="hero-socials-col">
-            <div className="social-icons">
-              {(item.socialMedia || []).map((social, idx) => (
-                social?.url && social?.platform ? (
-                <motion.a
-                  key={idx}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.platform}
-                  whileHover={{ y: -2, scale: 1.05 }}
-                >
-                  <i className={`fa-brands fa-${social.platform.toLowerCase()}`} />
-                </motion.a>
-                ) : null
-              ))}
-            </div>
-          </div>
-        </motion.div>
+          
+        </div>
       </div>
     </section>
   );

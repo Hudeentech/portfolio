@@ -1,0 +1,108 @@
+/* ============================================
+   TRUST SECTION
+   ============================================ */
+.philosophy {
+  padding: 8rem 5%;
+  background: var(--bg-secondary); /* Dark background */
+  position: relative;
+  overflow: hidden;
+}
+
+.phil-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.phil-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 4rem;
+  max-width: 900px;
+}
+
+.phil-text {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 800px;
+  margin-bottom: 6rem;
+}
+
+/* Desktop Grid: 4 columns with vertical dividers */
+.phil-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.stat-item {
+  padding: 0 2rem;
+  border-right: 1px solid var(--border-color);
+}
+
+.stat-item:first-child {
+  padding-left: 0;
+}
+
+.stat-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.stat-item h3 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Tablet / Mobile Grid */
+@media (max-width: 900px) {
+  .phil-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-item {
+    padding: 2rem 0;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  /* First row gets bottom border */
+  .stat-item:nth-child(1),
+  .stat-item:nth-child(2) {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Left column gets right border */
+  .stat-item:nth-child(odd) {
+    border-right: 1px solid var(--border-color);
+    padding-right: 2rem;
+  }
+
+  /* Right column */
+  .stat-item:nth-child(even) {
+    padding-left: 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .stat-item {
+    padding: 1.5rem 0 !important;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.75rem;
+  }
+}

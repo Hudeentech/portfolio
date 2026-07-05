@@ -1,125 +1,109 @@
 /* ============================================
-   EXPERIENCE — Timeline editorial
+   EXPERIENCE — Apple Grouped List
    ============================================ */
-.exp {
-  padding: var(--section-v) 2rem;
+.experience-flow {
+  background: var(--bg-primary);
+  padding: var(--section-padding) 0;
 }
 
-.exp-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-}
-
-/* ── Banner ── */
-.exp-heading-container {
-  position: relative;
-  padding: 4rem 3rem;
-  border: var(--rule);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  margin-bottom: 3.5rem;
-  background-size: cover;
-  background-position: center;
-}
-
-/* Dark overlay on wallpaper */
-.exp-heading-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(14, 13, 11, 0.78);
-}
-
-.exp-heading-container > * {
-  position: relative;
-  z-index: 2;
-}
-
-.exp-heading-container > h4 { margin-bottom: 0.75rem; }
-
-.exp-heading {
-  font-size: clamp(1.75rem, 4.5vw, 3.25rem);
-  line-height: 1.1;
-  color: var(--cream);
-}
-
-.abt-contrast {
-  color: var(--gold);
-  font-style: italic;
-}
-
-/* ── Timeline rows ── */
-.experience-content {
+.exp-group-container {
   display: flex;
   flex-direction: column;
-  border-top: var(--rule);
+  background: var(--glass-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
 }
 
-.exp-component {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 0;
-  border-bottom: var(--rule);
-  transition: background var(--t-base);
-}
-
-.exp-component:hover { background: rgba(201, 168, 76, 0.03); }
-
-/* Year column */
-.year {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-  text-align: left;
-  border-right: var(--rule);
-  padding: 2rem 1.5rem 2rem 0;
+.exp-row {
   display: flex;
-  align-items: center;
-  align-self: stretch;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-color);
+  padding: 3rem 2.5rem;
+  transition: background var(--t-fast);
 }
 
-/* Skills area */
-.experience {
-  padding: 2rem 0 2rem 2rem;
+.exp-row:last-child {
+  border-bottom: none;
 }
 
-.experience > div {
+.exp-row:hover {
+  background: var(--bg-secondary);
+}
+
+.exp-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
-.experience img,
-.exp-component > div > div > img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  padding: 0.35rem;
-  background: var(--ink-soft);
-  border: var(--rule);
-  border-radius: var(--r-sm);
-  transition: all var(--t-base);
-  filter: grayscale(30%);
+.exp-date {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
 }
 
-.experience img:hover,
-.exp-component > div > div > img:hover {
-  border-color: var(--gold);
-  background: var(--gold-dim);
-  filter: grayscale(0%);
-  transform: translateY(-3px) scale(1.08);
+.exp-role {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-  .exp { padding: 4rem 1.25rem; }
-  .exp-heading-container { padding: 2.5rem 1.5rem; }
-  .exp-component { grid-template-columns: 70px 1fr; }
-  .year { padding: 1.5rem 1rem 1.5rem 0; font-size: 0.68rem; }
-  .experience { padding: 1.5rem 0 1.5rem 1.25rem; }
+.exp-company {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.exp-content {
+  width: 100%;
+}
+
+.exp-content p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+  .exp-row {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 4rem;
+  }
+  
+  .exp-header {
+    flex: 0 0 35%;
+    margin-bottom: 0;
+  }
+  
+  .exp-content {
+    flex: 1;
+    padding-left: 2rem;
+  }
+
+  .exp-date {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 640px) {
+  .exp-row {
+    padding: 2rem 1.5rem;
+  }
 }

@@ -1,51 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ============================================
-   DESIGN TOKENS — Editorial Magazine Palette
+   DESIGN TOKENS — Apple-Inspired Minimalism
    ============================================ */
 :root {
-  /* === PALETTE === */
-  --ink:          #0E0D0B;          /* near-black warm ink */
-  --ink-soft:     #1C1A17;          /* card / surface backgrounds */
-  --ink-muted:    #2C2A26;          /* borders, dividers */
+  /* === PALETTE (LIGHT MODE DEFAULT) === */
+  --bg-primary: #FFFFFF;        
+  --bg-secondary: #F5F5F7;      
+  --bg-tertiary: #EBEBEB;       
+  
+  --text-primary: #1D1D1F;      
+  --text-secondary: #86868B;    
+  --text-inverse: #FFFFFF;      
 
-  --cream:        #F2EEE7;          /* warm off-white / text on dark */
-  --cream-dim:    rgba(242, 238, 231, 0.58);
-  --cream-ghost:  rgba(242, 238, 231, 0.28);
+  --brand-accent: var(--text-primary); /* Monochromatic black/white */
+  --border-color: rgba(0, 0, 0, 0.08);
 
-  --gold:         #C9A84C;          /* primary accent */
-  --gold-light:   #E2C070;          /* gold on hover */
-  --gold-dim:     rgba(201, 168, 76, 0.15);
-  --gold-glow:    rgba(201, 168, 76, 0.25);
-
-  --stone:        #7B7568;          /* secondary muted text */
-  --stone-light:  #A39B8E;
-
+  --accent-glow: rgba(0, 0, 0, 0.02); 
+  
   /* === TYPOGRAPHY === */
-  --font-display: 'DM Serif Display', serif;   /* editorial headlines */
-  --font-body:    'DM Sans', sans-serif;        /* body / UI */
-  --font-mono:    'Space Mono', monospace;      /* labels / tags */
-
-  /* === SPACING === */
-  --nav-height:   72px;
-  --max-w:        1100px;
-  --section-v:    6rem;
-
-  /* === BORDERS === */
-  --rule:         1px solid rgba(242, 238, 231, 0.12);
-  --rule-gold:    1px solid rgba(201, 168, 76, 0.35);
-
-  /* === RADIUS === */
-  --r-sm: 6px;
-  --r-md: 12px;
-  --r-lg: 20px;
-  --r-xl: 28px;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+  /* === SPACING & SIZING === */
+  --nav-height: 80px;
+  --section-padding: 8rem;
+  --gap-sm: 1rem;
+  --gap-md: 2rem;
+  --gap-lg: 5rem;
+  --container-width: 1200px;
+  
+  /* === BORDERS & SHADOWS === */
+  --border-radius: 20px;
+  --border-radius-sm: 12px;
+  --border-radius-pill: 999px;
+  
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.08);
 
   /* === TRANSITIONS === */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --t-fast: 0.18s ease;
-  --t-base: 0.32s ease;
-  --t-slow: 0.6s var(--ease-out-expo);
+  --t-fast: 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  --t-base: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #000000;        
+  --bg-secondary: #161617;      
+  --bg-tertiary: #1D1D1F;       
+  
+  --text-primary: #F5F5F7;      
+  --text-secondary: #86868B;    
+  --text-inverse: #000000;      
+
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-glow: rgba(255, 255, 255, 0.02); 
+  
+  --glass-bg: rgba(0, 0, 0, 0.72);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================
@@ -60,170 +71,156 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  background: var(--bg-primary);
 }
 
 body {
-  background: var(--ink);
-  color: var(--cream);
-  font-family: var(--font-body);
-  line-height: 1.7;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--t-base), color var(--t-base);
 }
-
-/* ============================================
-   SCROLLBAR
-   ============================================ */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ink-soft); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
 
 /* ============================================
    TYPOGRAPHY
    ============================================ */
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 400;              /* DM Serif Display is powerful at 400 */
-  color: var(--cream);
-  line-height: 1.08;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.04em; /* Very tight tracking for display headers */
+  font-weight: 600;
+  text-transform: none; /* No more forced uppercase */
+}
+
+h1 { font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 700; letter-spacing: -0.05em; }
+h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+h4 { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.02em; }
+
+p {
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 1.5vw, 1.1875rem);
+  line-height: 1.6;
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 
-h1 { font-size: clamp(3rem, 7vw, 6.5rem); }
-h2 { font-size: clamp(2rem, 4.5vw, 3.75rem); }
-h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); }
-
-/* Editorial label / overline */
-h4 {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-h4::before {
-  content: '';
-  flex-shrink: 0;
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-}
-
-p {
-  font-family: var(--font-body);
-  font-weight: 400;
-  color: var(--cream-dim);
-  font-size: 1rem;
-  line-height: 1.75;
-  margin-bottom: 0;
-}
-
 a {
-  color: var(--cream);
+  color: var(--brand-accent);
   text-decoration: none;
-  transition: color var(--t-fast);
+  transition: opacity var(--t-fast);
 }
 
-a:hover { color: var(--gold-light); }
+a:hover { opacity: 0.7; }
 
-/* ============================================
-   SELECTION
-   ============================================ */
 ::selection {
-  background: var(--gold-dim);
-  color: var(--cream);
+  background: var(--brand-accent);
+  color: #FFFFFF;
 }
 
 /* ============================================
-   LAYOUT WRAPPER
+   LAYOUT WRAPPER & SECTIONS
    ============================================ */
 .Home {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--ink);
 }
 
-/* Each section gets a full-width ruled top line */
-.Home > section {
-  border-top: var(--rule);
+section {
+  padding: var(--section-padding) 5%;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* ============================================
-   BUTTON SYSTEM
+   UTILITY CLASSES (BUTTONS)
    ============================================ */
-button {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-body);
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  transition: all var(--t-fast);
+  border: none;
   cursor: pointer;
-  border: none;
-  transition: all var(--t-base);
-  white-space: nowrap;
-  letter-spacing: 0.02em;
-}
-
-/* Gold filled */
-.btn-gold {
-  padding: 0.75rem 2rem;
-  background: var(--gold);
-  color: var(--ink);
-  border-radius: var(--r-sm);
-  font-weight: 600;
   text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: scale(0.98);
+  opacity: 0.9;
+  color: var(--bg-primary);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text-primary);
+  color: var(--bg-primary) !important;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  transition: all var(--t-fast);
   border: none;
+  text-decoration: none;
 }
 
-.btn-gold:hover {
-  background: var(--gold-light);
-  color: var(--ink);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px var(--gold-glow);
+.nav-cta:hover {
+  opacity: 0.85;
+  transform: scale(0.98);
 }
 
-/* Ghost outlined */
-.btn-ghost {
-  padding: 0.75rem 2rem;
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
-  color: var(--cream);
-  border: 1px solid rgba(242, 238, 231, 0.25);
-  border-radius: var(--r-sm);
+  color: var(--text-primary);
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  border: 1px solid var(--border-color);
+  transition: all var(--t-fast);
+  cursor: pointer;
   text-decoration: none;
 }
 
-.btn-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold-light);
-  transform: translateY(-2px);
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+  border-color: var(--text-primary);
 }
 
-/* ============================================
-   SHARED CARD SURFACE
-   ============================================ */
-.card-surface {
-  background: var(--ink-soft);
-  border: var(--rule);
-  border-radius: var(--r-lg);
-}
+/* Hide scrollbar for seamless flow */
+::-webkit-scrollbar { width: 0px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: transparent; }
 
-/* ============================================
-   PROJECT FILTER ACTIVE (global override)
-   ============================================ */
-.filter-btn.active {
-  background: var(--gold) !important;
-  color: var(--ink) !important;
-  border-color: transparent !important;
-}

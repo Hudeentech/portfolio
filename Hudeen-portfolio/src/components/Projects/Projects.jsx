@@ -1,14 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { urlFor, client } from "../../client.js";
-import { motion, AnimatePresence } from "framer-motion";
-import { PortableText } from "@portabletext/react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./Projects.css";
 
+const ProjectCard = ({ data, index, onClick }) => {
+  const bgColor = data.bgColor || '#1A1A1A'; // Plain sleek dark color by default
+
+  return (
+    <motion.div
+      className="project-showcase-card"
+      style={{ backgroundColor: bgColor }}
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      onClick={() => onClick(data)}
+    >
+      <div className="card-left">
+        <div className="card-left-top">
+          <h3>{data.projectName || 'Untitled'}</h3>
+          {data.tag && <span className="card-tag">{data.tag}</span>}
+          <p className="card-summary">
+            {data.projectSummary || "Delivering high-impact design and engineering solutions that drive user engagement and business value."}
+          </p>
+        </div>
+        <div className="card-cta">
+          <span>See more</span>
+          <i className="fa-solid fa-arrow-right"></i>
+        </div>
+      </div>
+
+      <div className="card-right">
+        {data.images ? (
+          <img
+            src={urlFor(data.images)?.url()}
+            alt={data.projectName || 'Project'}
+            className="card-image"
+          />
+        ) : (
+          <div className="card-image-placeholder"></div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
 function Projects() {
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [showArticle, setShowArticle] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
   const [projectData, setProjectData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     client.fetch('*[_type == "projects"]')
@@ -16,237 +56,34 @@ function Projects() {
       .catch((err) => console.error('Projects fetch error:', err));
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = showArticle ? 'hidden' : 'unset';
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [showArticle]);
-
-  const tags = [
-    { key: null,  label: "All" },
-    { key: "web", label: "Web Dev" },
-    { key: "ui",  label: "UI/UX" },
-  ];
-
-  const filtered = selectedTag
-    ? projectData.filter((d) => d?.tag?.trim().toLowerCase() === selectedTag)
-    : projectData;
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
-    visible: (i = 0) => ({
-      opacity: 1, y: 0,
-      transition: { duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] },
-    }),
-  };
-
   return (
-    <section className="prj-c" id="projects">
-      <div className="prj-inner">
-
-        {/* ── Header ── */}
-        <div className="prj-header">
-          <div className="prj-header-left">
-            <motion.h4
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              My Projects
-            </motion.h4>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.07 }}
-            >
-              Selected Work
-            </motion.h2>
-          </div>
-
-          <motion.a
-            href="/project"
-            className="prj-view-all"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            View all
-            <i className="fa-solid fa-arrow-right" style={{ fontSize: '0.6rem' }} />
-          </motion.a>
+    <section className="projects-flow" id="projects">
+      <div className="container">
+        
+        <div className="flow-header">
+          <h2>Selected Work</h2>
+          <p className="flow-sub">A collection of projects focused on solving business problems through thoughtful design and strategy.</p>
         </div>
 
-        {/* ── Filter tabs ── */}
-        <div className="toggel-btn">
-          {tags.map(({ key, label }) => (
-            <motion.button
-              key={label}
-              className={`filter-btn ${selectedTag === key ? "active" : ""}`}
-              onClick={() => setSelectedTag(key)}
-              whileTap={{ scale: 0.95 }}
-            >
-              {label}
-            </motion.button>
-          ))}
-        </div>
-
-        {/* ── Project grid ── */}
-        <motion.div
-          key={selectedTag || 'all'}
-          className="prj-grid"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {filtered.length === 0 && (
-            <div style={{
-              gridColumn: '1 / -1',
-              padding: '4rem 2rem',
-              textAlign: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--stone)',
-            }}>
-              No projects in this category yet.
+        <div className="projects-stack">
+          {projectData.length === 0 && (
+            <div style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
+              Loading projects...
             </div>
           )}
 
-          {filtered.map((data, index) => (
-            <motion.div
-              key={data.projectName + index}
-              className="prj-b"
-              custom={index}
-              variants={fadeUp}
-              onClick={() => {
-                setSelectedProject(data);
-                setShowArticle(true);
+          {projectData.map((data, index) => (
+            <ProjectCard 
+              key={data._id || index}
+              data={data} 
+              index={index} 
+              onClick={(proj) => {
+                navigate(`/project/${proj._id}`, { state: { project: proj, index: index } });
               }}
-            >
-              {/* Card index */}
-              <span className="prj-index">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-
-              {/* Image */}
-              {data.images && (
-                <div className="img-container">
-                  <img
-                    src={urlFor(data.images)?.url()}
-                    alt={data.projectName || 'Project'}
-                    className="prj-img"
-                  />
-                </div>
-              )}
-
-              {/* Text content */}
-              <div className="prj-content-container">
-                <div className="prj-main-c">
-                  <h3>{data.projectName || 'Untitled'}</h3>
-                  {data.tag && (
-                    <span className="prj-tag">
-                      {data.tag === 'web' ? 'Web Dev' : 'UI/UX'}
-                    </span>
-                  )}
-                </div>
-                {data.desc && <p>{data.desc}</p>}
-
-                <div className="prj-hint">
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                  View details
-                </div>
-              </div>
-            </motion.div>
+            />
           ))}
-        </motion.div>
+        </div>
       </div>
-
-      {/* ── Modal ── */}
-      <AnimatePresence>
-        {showArticle && selectedProject && (
-          <motion.div
-            className="modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowArticle(false)}
-          >
-            <motion.div
-              className="modal-content"
-              initial={{ y: 60, opacity: 0, scale: 0.96 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 30, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="modal-close"
-                onClick={() => setShowArticle(false)}
-                aria-label="Close modal"
-              >
-                <i className="fa-solid fa-times" />
-              </button>
-
-              {selectedProject.images && (
-                <img
-                  src={urlFor(selectedProject.images)?.url()}
-                  alt={selectedProject.projectName || 'Project'}
-                  className="modal-image"
-                />
-              )}
-
-
-
-              {selectedProject.overview && (
-                <div className="modal-text-container">
-                  <PortableText value={selectedProject.overview} />
-                </div>
-              )}
-
-              {(selectedProject.links || selectedProject.git || selectedProject.behance) && (
-                <div className="modal-links">
-                  {selectedProject.links && (
-                    <a
-                      href={selectedProject.links}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="demo-link"
-                    >
-                      <i className="fa-solid fa-globe" style={{ fontSize: '0.75rem' }} />
-                      View Live Demo
-                    </a>
-                  )}
-                  {selectedProject.behance && (
-                    <a
-                      href={selectedProject.behance}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="demo-link"
-                    >
-                      <i className="fa-brands fa-behance" style={{ fontSize: '0.75rem' }} />
-                      Visit Behance
-                    </a>
-                  )}
-                  {selectedProject.git && (
-                    <a
-                      href={selectedProject.git}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="demo-link"
-                      style={{ background: 'var(--stone-light)', color: 'var(--ink)' }}
-                    >
-                      <i className="fa-brands fa-github" style={{ fontSize: '0.75rem' }} />
-                      View Source
-                    </a>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
