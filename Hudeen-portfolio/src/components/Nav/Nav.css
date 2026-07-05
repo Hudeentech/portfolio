@@ -23,7 +23,7 @@
   border-radius: 999px;
   padding: 0 1.5rem;
   height: 64px; /* Slightly slimmer */
-  width: 100%;
+  width: 80%;
   max-width: var(--container-width);
   margin: 0 auto;
   pointer-events: auto;
@@ -258,7 +258,9 @@
 }
 
 @media (max-width: 768px) {
-  .nav-wrapper { padding: 0; }
+  .nav-wrapper { 
+    padding: 0 1rem; 
+  }
   .desktop-only { display: none !important; }
   .nav-cta { display: none; }
   .burger-btn { display: flex; }
@@ -268,8 +270,8 @@
   }
   
   .nav-container {
-    padding: 0 1.5rem;
-    max-width: 100%;
-    margin: 0;
+    width: 100%;
+    padding: 0 1.25rem;
+    margin: 0 auto;
   }
 }
