@@ -4,6 +4,13 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'showcaseOnHome',
+      title: 'Showcase on Home Page',
+      type: 'boolean',
+      description: 'Check this to showcase the project in the Selected Work section on the home page.',
+      initialValue: false
+    },
+    {
       name: 'projectName',
       title: 'Project Name',
       type: 'string',

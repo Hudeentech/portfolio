@@ -22,7 +22,7 @@ const ProjectCard = ({ data, index, onClick }) => {
           <h3>{data.projectName || 'Untitled'}</h3>
           {data.tag && <span className="card-tag">{data.tag}</span>}
           <p className="card-summary">
-            {data.projectSummary || "Delivering high-impact design and engineering solutions that drive user engagement and business value."}
+            {data.desc || "Delivering high-impact design and engineering solutions that drive user engagement and business value."}
           </p>
         </div>
         <div className="card-cta">
@@ -32,9 +32,9 @@ const ProjectCard = ({ data, index, onClick }) => {
       </div>
 
       <div className="card-right">
-        {data.images ? (
+        {data.imageUrl ? (
           <img
-            src={urlFor(data.images)?.url()}
+            src={urlFor(data.imageUrl)?.url()}
             alt={data.projectName || 'Project'}
             className="card-image"
           />
@@ -51,7 +51,7 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    client.fetch('*[_type == "projects"]')
+    client.fetch('*[_type == "projectPage" && showcaseOnHome == true]')
       .then((data) => setProjectData(data || []))
       .catch((err) => console.error('Projects fetch error:', err));
   }, []);
