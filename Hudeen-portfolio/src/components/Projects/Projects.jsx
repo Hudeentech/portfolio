@@ -4,8 +4,18 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "./Projects.css";
 
+const getProjectLiveLink = (data) => {
+  if (!data) return null;
+  const url = data.demoLink || data.links || data.liveLink || data.demo || data.link || data.liveUrl;
+  if (!url) return null;
+  const label = data.demoLink ? 'Live Demo' : 'Live Site';
+  return { url, label };
+};
+
 const ProjectCard = ({ data, index, onClick }) => {
   const bgColor = data.bgColor || '#1A1A1A'; // Plain sleek dark color by default
+  const liveInfo = getProjectLiveLink(data);
+  const imageSource = data.imageUrl || data.images;
 
   return (
     <motion.div
@@ -25,16 +35,30 @@ const ProjectCard = ({ data, index, onClick }) => {
             {data.desc || "Delivering high-impact design and engineering solutions that drive user engagement and business value."}
           </p>
         </div>
-        <div className="card-cta">
-          <span>See more</span>
-          <i className="fa-solid fa-arrow-right"></i>
+        <div className="card-actions">
+          <div className="card-cta">
+            <span>See more</span>
+            <i className="fa-solid fa-arrow-right"></i>
+          </div>
+          {liveInfo && (
+            <a
+              href={liveInfo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-live-link"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span>{liveInfo.label}</span>
+              <i className="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          )}
         </div>
       </div>
 
       <div className="card-right">
-        {data.imageUrl ? (
+        {imageSource ? (
           <img
-            src={urlFor(data.imageUrl)?.url()}
+            src={urlFor(imageSource)?.url()}
             alt={data.projectName || 'Project'}
             className="card-image"
           />
@@ -51,7 +75,7 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    client.fetch('*[_type == "projectPage" && showcaseOnHome == true]')
+    client.fetch('*[_type in ["projectPage", "projects"] && showcaseOnHome == true]')
       .then((data) => setProjectData(data || []))
       .catch((err) => console.error('Projects fetch error:', err));
   }, []);

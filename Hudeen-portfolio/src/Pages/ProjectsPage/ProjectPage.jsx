@@ -7,6 +7,14 @@ import "../../components/Projects/Projects.css";
 import { urlFor, client } from "../../client.js";
 import Footer from "../../components/Footer/Footer";
 
+const getProjectLiveLink = (data) => {
+  if (!data) return null;
+  const url = data.demoLink || data.links || data.liveLink || data.demo || data.link || data.liveUrl;
+  if (!url) return null;
+  const label = data.demoLink ? 'Live Demo' : 'Live Site';
+  return { url, label };
+};
+
 function ProjectPage() {
   const [projectData, setProjectData] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
@@ -16,14 +24,19 @@ function ProjectPage() {
   const fetchProjects = async () => {
     try {
       const data = await client.fetch(`
-        *[_type == "projectPage"]{
+        *[_type in ["projectPage", "projects"]]{
           _id,
+          _type,
           projectName,
           desc,
           imageUrl,
+          images,
           bgColor,
           github,
+          git,
           demoLink,
+          links,
+          liveLink,
           behance,
           tag,
           case,
@@ -96,6 +109,9 @@ function ProjectPage() {
 
           {filtered.map((data) => {
             const bgColor = data.bgColor || '#1A1A1A';
+            const liveInfo = getProjectLiveLink(data);
+            const imageSource = data.imageUrl || data.images;
+
             return (
               <motion.div
                 key={data._id}
@@ -115,16 +131,30 @@ function ProjectPage() {
                       {data.desc || "Delivering high-impact design and engineering solutions that drive user engagement and business value."}
                     </p>
                   </div>
-                  <div className="card-cta">
-                    <span>Read Case Study</span>
-                    <i className="fa-solid fa-arrow-right"></i>
+                  <div className="card-actions">
+                    <div className="card-cta">
+                      <span>Read Case Study</span>
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </div>
+                    {liveInfo && (
+                      <a
+                        href={liveInfo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="card-live-link"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>{liveInfo.label}</span>
+                        <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                      </a>
+                    )}
                   </div>
                 </div>
 
                 <div className="card-right">
-                  {data.imageUrl ? (
+                  {imageSource ? (
                     <img
-                      src={urlFor(data.imageUrl)?.url()}
+                      src={urlFor(imageSource)?.url()}
                       alt={data.projectName || 'Project'}
                       className="card-image"
                     />

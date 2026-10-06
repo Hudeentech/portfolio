@@ -91,6 +91,13 @@
   letter-spacing: -0.01em;
 }
 
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
 .card-cta {
   display: flex;
   align-items: center;
@@ -102,6 +109,36 @@
 
 .project-showcase-card:hover .card-cta {
   opacity: 0.7;
+}
+
+.card-live-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--t-fast);
+  z-index: 2;
+}
+
+.card-live-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+.card-live-link i {
+  font-size: 0.75rem;
 }
 
 /* Right Side (Image) */

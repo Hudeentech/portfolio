@@ -6,6 +6,14 @@ import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import "./ProjectDetails.css";
 
+const getProjectLiveLink = (data) => {
+  if (!data) return null;
+  const url = data.demoLink || data.links || data.liveLink || data.demo || data.link || data.liveUrl;
+  if (!url) return null;
+  const label = data.demoLink ? 'Live Demo' : 'Launch Site';
+  return { url, label };
+};
+
 function ProjectDetails() {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -14,12 +22,16 @@ function ProjectDetails() {
   const [loading, setLoading] = useState(!state?.project);
   
   const bgColor = project?.bgColor || '#1A1A1A';
+  const liveInfo = getProjectLiveLink(project);
+  const gitUrl = project?.github || project?.git;
+  const behanceUrl = project?.behance;
+  const heroImage = project?.imageUrl || project?.images;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!project && id) {
       // Fallback fetch if user navigates directly to URL
-      client.fetch(`*[_type == "projects" && _id == $id][0]`, { id })
+      client.fetch(`*[_type in ["projects", "projectPage"] && _id == $id][0]`, { id })
         .then((data) => {
           setProject(data);
           setLoading(false);
@@ -69,16 +81,27 @@ function ProjectDetails() {
           <div className="pd-hero-clean">
             <div className="pd-hero-text">
               <h1>{project.projectName}</h1>
-              {project.tag && (
-                <div className="pd-meta">
+              <div className="pd-meta">
+                {project.tag && (
                   <span className="pd-tag-clean">{project.tag}</span>
-                </div>
-              )}
+                )}
+                {liveInfo && (
+                  <a
+                    href={liveInfo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pd-live-btn"
+                  >
+                    <span>{liveInfo.label}</span>
+                    <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                )}
+              </div>
             </div>
             
-            {project.images && (
+            {heroImage && (
               <div className="pd-hero-image-wrapper">
-                <img src={urlFor(project.images)?.url()} alt={project.projectName} className="pd-hero-image-clean" />
+                <img src={urlFor(heroImage)?.url()} alt={project.projectName} className="pd-hero-image-clean" />
               </div>
             )}
           </div>
@@ -114,14 +137,19 @@ function ProjectDetails() {
           </div>
 
           <div className="pd-actions">
-            {project.links && (
-              <a href={project.links} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                Launch Site
+            {liveInfo && (
+              <a href={liveInfo.url} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                {liveInfo.label}
               </a>
             )}
-            {project.git && (
-              <a href={project.git} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            {gitUrl && (
+              <a href={gitUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
                 Source Code
+              </a>
+            )}
+            {behanceUrl && (
+              <a href={behanceUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                Behance
               </a>
             )}
           </div>
